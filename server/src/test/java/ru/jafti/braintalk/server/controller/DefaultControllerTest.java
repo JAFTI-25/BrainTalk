@@ -1,5 +1,4 @@
 package ru.jafti.braintalk.server.controller;
-
 import org.junit.jupiter.api.Test;
 import ru.jafti.braintalk.server.connection.Session;
 
