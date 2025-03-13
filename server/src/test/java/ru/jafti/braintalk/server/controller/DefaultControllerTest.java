@@ -3,7 +3,7 @@ import org.junit.jupiter.api.Test;
 import ru.jafti.braintalk.server.connection.Session;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static ru.jafti.braintalk.server.Constants.SYSTEM_TALKER;
@@ -16,7 +16,7 @@ class DefaultControllerTest {
     @Test
     void isApplicable() {
         boolean result = uut.isApplicable("/who");
-        assertTrue(result);
+        assertFalse(result);
         assertEquals(result, true);
     }
 
