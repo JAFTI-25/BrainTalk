@@ -1,9 +1,8 @@
-package ru.jafti.braintalk.server.controller;
-
 import ru.jafti.braintalk.server.RendezvousPoint;
 import ru.jafti.braintalk.server.connection.Channel;
 import ru.jafti.braintalk.server.connection.Session;
 import org.junit.jupiter.api.Test;
+import ru.jafti.braintalk.server.controller.SendController;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;

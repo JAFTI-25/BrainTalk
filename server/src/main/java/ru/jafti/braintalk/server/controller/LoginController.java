@@ -7,7 +7,7 @@ import ru.jafti.braintalk.server.connection.Session;
 import java.util.regex.Pattern;
 
 
-class LoginController implements Controller {
+public class LoginController implements Controller {
 
     private static final Pattern PATTERN = Pattern.compile("^/login +(?<talker>\\w+)");
     private static final Pattern APPLICABLE_PATTERN = Pattern.compile("^/login.*");

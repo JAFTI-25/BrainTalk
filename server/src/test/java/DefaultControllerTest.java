@@ -1,7 +1,6 @@
-package ru.jafti.braintalk.server.controller;
-
 import org.junit.jupiter.api.Test;
 import ru.jafti.braintalk.server.connection.Session;
+import ru.jafti.braintalk.server.controller.DefaultController;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
