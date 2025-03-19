@@ -2,7 +2,8 @@ name: Run mvnw Tests
 on: pull_request
 jobs:
   test:
-    runs-on: self-hosted
+    #runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: run mvnw tests
         run: mvnw test
