@@ -6,4 +6,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: run mvnw tests
-        run: mvnw test
+#        run: mvnw test
+        run: mvn test
