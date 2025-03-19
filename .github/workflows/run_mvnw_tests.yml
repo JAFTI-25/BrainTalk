@@ -11,8 +11,8 @@ jobs:
         with:
           java-version: '23'
           distribution: 'temurin'
-      - name: build
-        run: mvn -B package --file pom.xml
+#      - name: build
+#        run: mvn -B package --file pom.xml
       - name: run mvnw tests
         run: mvnw test
 #        run: mvn test
