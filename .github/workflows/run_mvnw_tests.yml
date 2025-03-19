@@ -2,8 +2,8 @@ name: Run mvnw Tests
 on: pull_request
 jobs:
   test:
-    runs-on: self-hosted
-#    runs-on: ubuntu-latest
+#    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK 23
@@ -11,8 +11,8 @@ jobs:
         with:
           java-version: '23'
           distribution: 'temurin'
-#      - name: build
-#        run: mvn -B package --file pom.xml
+      - name: build
+        run: mvn -B package --file pom.xml
       - name: run mvnw tests
-        run: mvnw test
-#        run: mvn test
+#        run: mvnw test
+        run: mvn test
