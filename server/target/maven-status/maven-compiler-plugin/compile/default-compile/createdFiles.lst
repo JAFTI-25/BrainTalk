@@ -1,0 +1,13 @@
+ru\jafti\braintalk\server\connection\Session.class
+ru\jafti\braintalk\server\controller\LoginController.class
+ru\jafti\braintalk\server\exception\MatchPatternException.class
+ru\jafti\braintalk\server\RendezvousPoint.class
+ru\jafti\braintalk\server\connection\ConnectionHandler.class
+ru\jafti\braintalk\server\connection\Channel.class
+ru\jafti\braintalk\server\controller\SendController.class
+ru\jafti\braintalk\server\Constants.class
+ru\jafti\braintalk\server\controller\Controller.class
+ru\jafti\braintalk\server\BrainTalkServerApplication.class
+ru\jafti\braintalk\server\controller\Controllers.class
+ru\jafti\braintalk\server\controller\DefaultController.class
+ru\jafti\braintalk\server\controller\WhoController.class

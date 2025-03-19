@@ -1,0 +1,13 @@
+C:\Users\pborozdin\Documents\AFTI\Java\BrainTalk\server\src\main\java\ru\jafti\braintalk\server\BrainTalkServerApplication.java
+C:\Users\pborozdin\Documents\AFTI\Java\BrainTalk\server\src\main\java\ru\jafti\braintalk\server\connection\Channel.java
+C:\Users\pborozdin\Documents\AFTI\Java\BrainTalk\server\src\main\java\ru\jafti\braintalk\server\connection\ConnectionHandler.java
+C:\Users\pborozdin\Documents\AFTI\Java\BrainTalk\server\src\main\java\ru\jafti\braintalk\server\connection\Session.java
+C:\Users\pborozdin\Documents\AFTI\Java\BrainTalk\server\src\main\java\ru\jafti\braintalk\server\Constants.java
+C:\Users\pborozdin\Documents\AFTI\Java\BrainTalk\server\src\main\java\ru\jafti\braintalk\server\controller\Controller.java
+C:\Users\pborozdin\Documents\AFTI\Java\BrainTalk\server\src\main\java\ru\jafti\braintalk\server\controller\Controllers.java
+C:\Users\pborozdin\Documents\AFTI\Java\BrainTalk\server\src\main\java\ru\jafti\braintalk\server\controller\DefaultController.java
+C:\Users\pborozdin\Documents\AFTI\Java\BrainTalk\server\src\main\java\ru\jafti\braintalk\server\controller\LoginController.java
+C:\Users\pborozdin\Documents\AFTI\Java\BrainTalk\server\src\main\java\ru\jafti\braintalk\server\controller\SendController.java
+C:\Users\pborozdin\Documents\AFTI\Java\BrainTalk\server\src\main\java\ru\jafti\braintalk\server\controller\WhoController.java
+C:\Users\pborozdin\Documents\AFTI\Java\BrainTalk\server\src\main\java\ru\jafti\braintalk\server\exception\MatchPatternException.java
+C:\Users\pborozdin\Documents\AFTI\Java\BrainTalk\server\src\main\java\ru\jafti\braintalk\server\RendezvousPoint.java
