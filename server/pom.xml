@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>braintalk-server</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -57,7 +57,6 @@
                                 <dockerFile>${project.basedir}/Dockerfile</dockerFile>
                                 <args>
                                     <JAR_FILE>target/braintalk-server-${project.version}.jar</JAR_FILE>
-                                    <PLATFORM>linux/amd64</PLATFORM>
                                 </args>
                             </build>
                         </image>
