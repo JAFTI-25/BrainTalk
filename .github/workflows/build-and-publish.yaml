@@ -5,7 +5,7 @@ on:
     branches: [ "feature/add-docker-2-maven" ]
 
 jobs:
-  verify:
+  build-and-publish:
     runs-on: self-hosted
 
     steps:
