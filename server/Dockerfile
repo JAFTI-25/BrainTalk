@@ -1,5 +1,6 @@
-FROM eclipse-temurin:23-jdk
+ARG PLATFORM
+FROM --platform=$PLATFORM eclipse-temurin:23-jdk
 
-ADD target/braintalk-server-1.0.jar app.jar
+COPY ${JAR_FILE} app.jar
 
 ENTRYPOINT ["java", "-jar", "app.jar"]
