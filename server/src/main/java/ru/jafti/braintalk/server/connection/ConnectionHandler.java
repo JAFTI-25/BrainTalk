@@ -50,7 +50,7 @@ public class ConnectionHandler extends Thread implements Session {
         in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         out = new PrintWriter(clientSocket.getOutputStream(), true);
 
-        out.println("Hello!! Tell me your login first please :)..");
+        out.println("Hello!!!!! Tell me your login first please :)..");
         String inputLine;
         while ((inputLine = in.readLine()) != null) {
             if (inputLine.isEmpty()) {
