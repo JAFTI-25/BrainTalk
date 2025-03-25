@@ -6,5 +6,9 @@ target/
 !**/*.iml
 /*.iml
 
+./db/
+.env
+server/dependency-reduced-pom.xml
+
 ### Mac OS ###
 .DS_Store

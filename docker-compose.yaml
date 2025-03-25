@@ -1,0 +1,26 @@
+services:
+  db_postgres:
+    image: postgres:16
+    restart: always
+    ports:
+      - "5433:5432"
+    networks:
+      - braintalk-local-network
+    volumes:
+      - ./db/db_data:/var/lib/postgresql/data/pgdata
+    command:
+      - "postgres"
+      - "-c"
+      - "max_connections=1500"
+    environment:
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+      POSTGRES_DB: "braintalk"
+      POSTGRES_USER: ${BT_POSTGRES_USER}
+      POSTGRES_PASSWORD: ${BT_POSTGRES_PASSWORD}
+
+networks:
+  braintalk-local-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.17.0.0/24
