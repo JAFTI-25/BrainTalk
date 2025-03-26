@@ -8,23 +8,15 @@
         <version>1.0</version>
     </parent>
 
-    <repositories>
-        <repository>
-            <id>central</id>
-            <url>https://repo.maven.apache.org/maven2</url>
-        </repository>
-        <repository>
-            <id>fabric8</id>
-            <url>https://repo1.maven.org/maven2/</url>
-        </repository>
-    </repositories>
-
-
     <artifactId>braintalk-server</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.0</version>
 
     <dependencies>
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>3.49.1.0</version>
+        </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
@@ -58,31 +50,14 @@
             <plugin>
                 <groupId>io.fabric8</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
-                <version>0.43.0</version>
+                <version>0.45.1</version>
                 <configuration>
                     <images>
                         <image>
-                            <!-- Имя образа (можно указать реестр, например `docker.io/username/my-app`) -->
                             <name>${project.artifactId}:${project.version}</name>
-
-                            <!-- Конфигурация сборки -->
                             <build>
-                                <!-- Используем Dockerfile (если он есть в проекте) -->
+                                <!-- Используем Dockerfile из корня проекта -->
                                 <dockerFile>${project.basedir}/Dockerfile</dockerFile>
-
-                                <!-- ИЛИ inline-конфигурация (без Dockerfile) -->
-                                <from>eclipse-temurin:17-jre</from>  <!-- Образ с JRE 17 -->
-                                <entryPoint>
-                                    <exec>
-                                        <arg>java</arg>
-                                        <arg>-jar</arg>
-                                        <arg>/app/${project.build.finalName}.jar</arg>
-                                    </exec>
-                                </entryPoint>
-                                <assembly>
-                                    <descriptorRef>artifact</descriptorRef>  <!-- Копирует JAR из target/ -->
-                                    <targetDir>/app</targetDir>  <!-- Куда положить JAR в контейнере -->
-                                </assembly>
                             </build>
                         </image>
                     </images>
@@ -90,16 +65,9 @@
                 <executions>
                     <execution>
                         <id>build-docker-image</id>
-                        <phase>package</phase>  <!-- Собирает образ при `mvn package` -->
+                        <phase>package</phase>
                         <goals>
                             <goal>build</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>push-docker-image</id>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>push</goal>
                         </goals>
                     </execution>
                 </executions>
