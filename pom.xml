@@ -1,99 +1,22 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>ru.jafti</groupId>
-        <artifactId>braintalk</artifactId>
-        <version>1.0</version>
-    </parent>
+    <groupId>ru.jafti</groupId>
+    <artifactId>braintalk</artifactId>
+    <version>1.0</version>
+    <packaging>pom</packaging>
 
-    <repositories>
-        <repository>
-            <id>central</id>
-            <url>https://repo.maven.apache.org/maven2</url>
-        </repository>
-        <repository>
-            <id>fabric8</id>
-            <url>https://repo1.maven.org/maven2/</url>
-        </repository>
-    </repositories>
+    <modules>
+        <module>server</module>
+    </modules>
 
-
-    <artifactId>braintalk-server</artifactId>
-    <packaging>jar</packaging>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>5.12.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>5.16.0</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-
-
-    <build>
-        <plugins>
-            <!-- Fabric8 Docker Maven Plugin -->
-            <plugin>
-                <groupId>io.fabric8</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <version>0.43.0</version>
-                <configuration>
-                    <images>
-                        <image>
-                            <!-- Имя образа (можно указать реестр, например `docker.io/username/my-app`) -->
-                            <name>${project.artifactId}:${project.version}</name>
-
-                            <!-- Конфигурация сборки -->
-                            <build>
-                                <!-- Используем Dockerfile (если он есть в проекте) -->
-                                <dockerFile>${project.basedir}/Dockerfile</dockerFile>
-
-                                <!-- ИЛИ inline-конфигурация (без Dockerfile) -->
-                                <from>eclipse-temurin:17-jre</from>  <!-- Образ с JRE 17 -->
-                                <entryPoint>
-                                    <exec>
-                                        <arg>java</arg>
-                                        <arg>-jar</arg>
-                                        <arg>/app/${project.build.finalName}.jar</arg>
-                                    </exec>
-                                </entryPoint>
-                                <assembly>
-                                    <descriptorRef>artifact</descriptorRef>  <!-- Копирует JAR из target/ -->
-                                    <targetDir>/app</targetDir>  <!-- Куда положить JAR в контейнере -->
-                                </assembly>
-                            </build>
-                        </image>
-                    </images>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>build-docker-image</id>
-                        <phase>package</phase>  <!-- Собирает образ при `mvn package` -->
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>push-docker-image</id>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>push</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
-
-
+    <properties>
+        <maven.compiler.source>23</maven.compiler.source>
+        <maven.compiler.target>23</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
 </project>
