@@ -6,13 +6,11 @@ import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLServerSocketFactory;
-import java.io.IOException;
-import java.io.FileInputStream;
 import java.net.Socket;
 import java.security.KeyStore;
 
 public class BrainTalkServerApplication {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         new BrainTalkServerApplication().start();
     }
 
