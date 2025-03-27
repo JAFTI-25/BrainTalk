@@ -25,21 +25,22 @@ public class BrainTalkClient {
             SSLSocketFactory factory = sslContext.getSocketFactory();
             BufferedReader in;
             PrintWriter out;
-            try (var socket = (SSLSocket)factory.createSocket(host, port)) {
+            try (var socket = (SSLSocket) factory.createSocket(host, port)) {
 
                 in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 out = new PrintWriter(socket.getOutputStream(), true);
-            }
-            BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
+                BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
+                System.out.println("-- Connected to the server");
+                String messageToTheServer = "Hello server";
+                System.out.println(">> sending message " + messageToTheServer);
+                out.println(messageToTheServer);
 
-            System.out.println(in.readLine());
-
-            String input;
-            while ((input = console.readLine()) != null) {
-                out.println(input);
+                System.out.println("-- Waiting for response");
                 String response = in.readLine();
-                System.out.println("Server: " + response);
+                System.out.println("<< server response: " + response);
+
             }
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

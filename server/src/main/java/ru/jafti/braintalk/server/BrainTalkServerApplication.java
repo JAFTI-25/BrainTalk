@@ -15,11 +15,12 @@ public class BrainTalkServerApplication {
     }
 
     public void start() {
+
         try {
             char[] password = "password".toCharArray();
 
             KeyStore keyStore = KeyStore.getInstance("JKS");
-            keyStore.load(getClass().getResourceAsStream("/server.keystore"), password);
+            keyStore.load(getClass().getResourceAsStream("/server.keystore.jks"), password);
 
             KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
             kmf.init(keyStore, password);
