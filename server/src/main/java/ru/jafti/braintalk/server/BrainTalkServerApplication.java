@@ -2,29 +2,43 @@ package ru.jafti.braintalk.server;
 
 import ru.jafti.braintalk.server.connection.ConnectionHandler;
 
-import java.io.IOException;
-import java.net.ServerSocket;
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLServerSocket;
+import javax.net.ssl.SSLServerSocketFactory;
 import java.net.Socket;
+import java.security.KeyStore;
 
 public class BrainTalkServerApplication {
-
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         new BrainTalkServerApplication().start();
     }
 
     public void start() {
-        try (var serverSocket = new ServerSocket(9000)) {
-            System.out.println("Server is listening connections on port " + 9000);
+        try {
+            char[] password = "password".toCharArray();
 
-            while (true) {
-                Socket accept = serverSocket.accept();
-                new ConnectionHandler(accept).start();
+            KeyStore keyStore = KeyStore.getInstance("JKS");
+            keyStore.load(getClass().getResourceAsStream("/server.keystore"), password);
+
+            KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+            kmf.init(keyStore, password);
+
+            SSLContext sslContext = SSLContext.getInstance("TLS");
+            sslContext.init(kmf.getKeyManagers(), null, null);
+
+            SSLServerSocketFactory sslServerSocketFactory = sslContext.getServerSocketFactory();
+
+            try (var serverSocket = (SSLServerSocket) sslServerSocketFactory.createServerSocket(9000)) {
+                System.out.println("SSL Server is listening on port 9000");
+
+                while (true) {
+                    Socket socket = serverSocket.accept();
+                    new ConnectionHandler(socket).start();
+                }
             }
         } catch (Exception e) {
             e.printStackTrace(System.err);
         }
     }
 }
-
-
-
