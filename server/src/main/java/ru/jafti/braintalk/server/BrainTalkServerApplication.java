@@ -1,7 +1,7 @@
 package ru.jafti.braintalk.server;
 
 import ru.jafti.braintalk.server.connection.ConnectionHandler;
-import ru.jafti.braintalk.server.persist.DbConnection;
+import ru.jafti.braintalk.server.persist.JdbcConnection;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -14,7 +14,7 @@ public class BrainTalkServerApplication {
     }
 
     public void start() {
-        new DbConnection().connect();
+        new JdbcConnection().connect();
 
         try (var serverSocket = new ServerSocket(9000)) {
             System.out.println("Server is listening connections on port " + 9000);
