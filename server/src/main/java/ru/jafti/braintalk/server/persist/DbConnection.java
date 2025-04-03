@@ -6,6 +6,9 @@ import java.sql.SQLException;
 
 public class DbConnection {
 
+    public Connection getConnection(){
+        return null;
+    }
     public void connect() {
         String btPostgresUser = System.getenv("BT_POSTGRES_USER");
         String btPostgresPass = System.getenv("BT_POSTGRES_PASS");
