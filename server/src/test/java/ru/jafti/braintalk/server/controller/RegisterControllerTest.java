@@ -1,7 +1,7 @@
 package ru.jafti.braintalk.server.controller;
 
 import org.junit.jupiter.api.Test;
-import ru.jafti.braintalk.server.TalkerProfileService;
+import ru.jafti.braintalk.server.service.TalkerProfileService;
 import ru.jafti.braintalk.server.connection.Session;
 
 import java.util.UUID;

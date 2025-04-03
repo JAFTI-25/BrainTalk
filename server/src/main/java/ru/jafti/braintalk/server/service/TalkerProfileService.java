@@ -1,4 +1,4 @@
-package ru.jafti.braintalk.server;
+package ru.jafti.braintalk.server.service;
 
 import java.util.UUID;
 

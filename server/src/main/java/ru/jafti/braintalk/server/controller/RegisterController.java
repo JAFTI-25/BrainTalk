@@ -1,6 +1,6 @@
 package ru.jafti.braintalk.server.controller;
 
-import ru.jafti.braintalk.server.TalkerProfileService;
+import ru.jafti.braintalk.server.service.TalkerProfileService;
 import ru.jafti.braintalk.server.connection.Session;
 import ru.jafti.braintalk.server.exception.MatchPatternException;
 

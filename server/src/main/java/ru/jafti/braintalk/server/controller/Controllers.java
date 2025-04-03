@@ -1,7 +1,7 @@
 package ru.jafti.braintalk.server.controller;
 
 import ru.jafti.braintalk.server.RendezvousPoint;
-import ru.jafti.braintalk.server.TalkerProfileServiceImpl;
+import ru.jafti.braintalk.server.service.TalkerProfileServiceImpl;
 import ru.jafti.braintalk.server.connection.Session;
 import ru.jafti.braintalk.server.persist.JdbcConnection;
 
