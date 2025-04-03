@@ -23,22 +23,20 @@ public class BrainTalkClient {
             }}, new SecureRandom());
 
             SSLSocketFactory factory = sslContext.getSocketFactory();
-            BufferedReader in;
-            PrintWriter out;
-            try (var socket = (SSLSocket)factory.createSocket(host, port)) {
 
-                in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                out = new PrintWriter(socket.getOutputStream(), true);
-            }
-            BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
+            try (SSLSocket socket = (SSLSocket) factory.createSocket(host, port);
+                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+                 BufferedReader console = new BufferedReader(new InputStreamReader(System.in))) {
 
-            System.out.println(in.readLine());
+                System.out.println(in.readLine());
 
-            String input;
-            while ((input = console.readLine()) != null) {
-                out.println(input);
-                String response = in.readLine();
-                System.out.println("Server: " + response);
+                String input;
+                while ((input = console.readLine()) != null) {
+                    out.println(input);
+                    String response = in.readLine();
+                    System.out.println("Server: " + response);
+                }
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
