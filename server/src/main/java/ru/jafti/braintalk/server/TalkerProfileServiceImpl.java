@@ -22,6 +22,27 @@ public class TalkerProfileServiceImpl implements TalkerProfileService {
     }
 
     @Override
+    public String findById(UUID id) {
+        try {
+            var selectSql = "SELECT * FROM talker_profile";
+            var resultSet = dbStatement.executeQuery(selectSql);
+
+            while (resultSet.next()) {
+                var storedUuid = UUID.fromString(resultSet.getString("talker_id"));
+                var nickname = resultSet.getString("nickname");
+
+                if (id == storedUuid) {
+                    return nickname;
+                }
+            }
+
+            return null;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public UUID findByNickname(String nickname) {
         try {
             var selectSql = "SELECT * FROM talker_profile";
