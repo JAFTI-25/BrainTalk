@@ -29,7 +29,7 @@ public class BrainTalkClient {
                  PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
                  BufferedReader console = new BufferedReader(new InputStreamReader(System.in))) {
 
-                System.out.println(in.readLine());
+                System.out.println("Connection to server");
 
                 String input;
                 while ((input = console.readLine()) != null) {
