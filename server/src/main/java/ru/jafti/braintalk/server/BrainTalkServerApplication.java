@@ -1,13 +1,10 @@
 package ru.jafti.braintalk.server;
 
 import ru.jafti.braintalk.server.connection.ConnectionHandler;
+import ru.jafti.braintalk.server.socket.SSLSocketFactory;
+import ru.jafti.braintalk.server.socket.SocketFactory;
 
-import javax.net.ssl.KeyManagerFactory;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLServerSocket;
-import javax.net.ssl.SSLServerSocketFactory;
 import java.net.Socket;
-import java.security.KeyStore;
 
 public class BrainTalkServerApplication {
     public static void main(String[] args) {
@@ -16,21 +13,10 @@ public class BrainTalkServerApplication {
 
     public void start() {
         try {
-            char[] password = "password".toCharArray();
+            SocketFactory socketFactory = new SSLSocketFactory();
 
-            KeyStore keyStore = KeyStore.getInstance("JKS");
-            keyStore.load(getClass().getResourceAsStream("/server.keystore"), password);
-
-            KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
-            kmf.init(keyStore, password);
-
-            SSLContext sslContext = SSLContext.getInstance("TLS");
-            sslContext.init(kmf.getKeyManagers(), null, null);
-
-            SSLServerSocketFactory sslServerSocketFactory = sslContext.getServerSocketFactory();
-
-            try (var serverSocket = (SSLServerSocket) sslServerSocketFactory.createServerSocket(9000)) {
-                System.out.println("SSL Server is listening on port 9000");
+            try (var serverSocket = socketFactory.get_socket(9000)) {
+                System.out.println("Server is listening on port 9000");
 
                 while (true) {
                     Socket socket = serverSocket.accept();
