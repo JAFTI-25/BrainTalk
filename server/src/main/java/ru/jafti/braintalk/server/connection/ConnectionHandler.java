@@ -50,7 +50,8 @@ public class ConnectionHandler extends Thread implements Session {
         in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         out = new PrintWriter(clientSocket.getOutputStream(), true);
 
-        out.println("Hi! Tell me your login first please :)..");
+        sendToOwner("BrainTalk", "Hi!");
+
         String inputLine;
         while ((inputLine = in.readLine()) != null) {
             if (inputLine.isEmpty()) {
@@ -58,7 +59,7 @@ public class ConnectionHandler extends Thread implements Session {
             }
 
             if (!loggedIn && !inputLine.startsWith("/login")) {
-                out.println("Enter your login with '/login' command");
+                sendToOwner("BrainTalk","Enter your login with '/login' command");
                 continue;
             }
             controllers.apply(inputLine, this);

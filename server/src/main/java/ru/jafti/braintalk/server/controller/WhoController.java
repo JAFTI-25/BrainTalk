@@ -34,6 +34,7 @@ class WhoController implements Controller {
                 StringBuilder sb = new StringBuilder("Active talkers:\n\r");
                 for (String activeTalker : activeTalkers) {
                     sb.append(" - ").append(activeTalker);
+                    sb.append("\n\r");
                 }
                 session.sendToOwner(SYSTEM_TALKER, sb.toString());
             }
