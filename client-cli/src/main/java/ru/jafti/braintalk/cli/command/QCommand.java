@@ -1,0 +1,33 @@
+package ru.jafti.braintalk.cli.command;
+
+
+import ru.jafti.braintalk.cli.mode.ModeHolder;
+import ru.jafti.braintalk.cli.out.TerminalOutput;
+
+public class QCommand implements Command {
+
+    private final TerminalOutput out;
+    private final ModeHolder mode;
+
+    public QCommand(TerminalOutput output, ModeHolder modeHolder) {
+        this.out = output;
+        this.mode = modeHolder;
+    }
+
+    @Override
+    public boolean isApplicable(String inputLine) {
+        return inputLine != null && inputLine.startsWith("/q");
+    }
+
+    @Override
+    public void execute(String inputLine) {
+        if (mode.isDefaultMode()) {
+            out.print("Already in default");
+        }
+
+        if (mode.isConnected()) {
+            mode.toDefault();
+            out.print("Back to default");
+        }
+    }
+}

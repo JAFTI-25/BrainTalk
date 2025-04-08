@@ -16,8 +16,8 @@ public class BrainTalkServerApplication {
         new DbConnection().connect();
         try {
             SocketFactory socketFactory = new SSLSocketFactory();
-            try (var serverSocket = socketFactory.getSocket(9000)) {
-                System.out.println("Server is listening on port 9000");
+            try (var serverSocket = socketFactory.getSocket(9443)) {
+                System.out.println("Server is listening on port 9443");
 
                 while (true) {
                     Socket socket = serverSocket.accept();
