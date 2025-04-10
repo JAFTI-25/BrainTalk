@@ -9,6 +9,7 @@
     </parent>
 
     <artifactId>braintalk-server</artifactId>
+    <version>1.0.8</version>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -72,6 +73,10 @@
                             <name>jafti25/${project.artifactId}:${project.version}</name>
                             <build>
                                 <dockerFile>${project.basedir}/Dockerfile</dockerFile>
+                                <tags>
+                                    <tag>latest</tag>
+                                    <tag>${project.version}</tag>
+                                </tags>
                             </build>
                         </image>
                     </images>
