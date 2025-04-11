@@ -8,15 +8,20 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.List;
+
+import static ru.jafti.braintalk.server.Constants.*;
 
 public class ConnectionHandler extends Thread implements Session {
+
+    // Эндпоинты, доступные без авторизации
+    private static final List<String> PUBLIC_ENDPOINTS = List.of(LOGIN, AUTO_LOGIN, REGISTER);
 
     private final Socket clientSocket;
     private final Controllers controllers;
     private final RendezvousPoint rendezvousPoint;
     private BufferedReader in;
     private PrintWriter out;
-
     private boolean loggedIn;
     private String talkerOwner;
 
@@ -50,19 +55,27 @@ public class ConnectionHandler extends Thread implements Session {
         in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         out = new PrintWriter(clientSocket.getOutputStream(), true);
 
-        out.println("Hi! Tell me your login first please :)..");
         String inputLine;
         while ((inputLine = in.readLine()) != null) {
             if (inputLine.isEmpty()) {
-                continue;
+                return;
             }
-
-            if (!loggedIn && !inputLine.startsWith("/login")) {
+            if (!loggedIn && !isPublicEndpoint(inputLine)) {
                 out.println("Enter your login with '/login' command");
-                continue;
+                return;
             }
             controllers.apply(inputLine, this);
         }
+    }
+
+
+    private boolean isPublicEndpoint(String inputLine) {
+        for (String publicEndpoint : PUBLIC_ENDPOINTS) {
+            if (inputLine.startsWith(publicEndpoint)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
