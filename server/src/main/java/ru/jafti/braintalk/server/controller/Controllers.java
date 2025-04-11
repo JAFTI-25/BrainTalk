@@ -1,6 +1,7 @@
 package ru.jafti.braintalk.server.controller;
 
 import ru.jafti.braintalk.server.RendezvousPoint;
+import ru.jafti.braintalk.server.service.TalkerProfileService;
 import ru.jafti.braintalk.server.connection.Session;
 
 import java.util.ArrayList;
@@ -14,9 +15,13 @@ public class Controllers {
 
     private Controllers() {
         var rendezvousPoint = RendezvousPoint.INSTANCE;
+        var talkerProfileService = TalkerProfileService.Impl.get();
+
+
         controllers.add(new SendController(rendezvousPoint));
         controllers.add(new LoginController(rendezvousPoint));
         controllers.add(new WhoController(rendezvousPoint));
+        controllers.add(new AutoLoginController(talkerProfileService, rendezvousPoint));
 
         controllers.add(new DefaultController()); // Должен быть последним
     }
