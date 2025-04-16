@@ -1,7 +1,6 @@
 package ru.jafti.braintalk.server;
 
 import ru.jafti.braintalk.server.connection.ConnectionHandler;
-import ru.jafti.braintalk.server.persist.DbConnection;
 import ru.jafti.braintalk.server.socket.SocketFactory;
 
 import java.net.ServerSocket;
@@ -18,18 +17,15 @@ public class BrainTalkServerApplication {
     }
 
     public void start() {
-        new DbConnection().connect();
-
         final ServerSocket rawSocket = SocketFactory.Impl.raw().getSocket(9000);
-        executor.submit(() -> acceptConnections(rawSocket));
+        executor.execute(() -> acceptConnections(rawSocket));
 
         final ServerSocket sslSocket = SocketFactory.Impl.ssl().getSocket(9443);
-        executor.submit(() -> acceptConnections(sslSocket));
-
+        executor.execute(() -> acceptConnections(sslSocket));
     }
 
     private void acceptConnections(ServerSocket serverSocket) {
-        try (serverSocket) {
+        try {
             System.out.println("Server is listening on port " + serverSocket.getLocalPort());
 
             while (true) {
