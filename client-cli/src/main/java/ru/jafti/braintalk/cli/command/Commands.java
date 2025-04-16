@@ -5,13 +5,13 @@ import ru.jafti.braintalk.cli.out.TerminalOutput;
 import ru.jafti.braintalk.cli.server_api.ApiClient;
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class Commands {
 
     public static final Commands INSTANCE = new Commands();
 
-    private final List<Command> commands;
+    private ArrayList<Command> commands = new ArrayList<>();
 
     private Commands() {
         ModeHolder modeHolder = ModeHolder.INSTANCE;
@@ -19,7 +19,6 @@ public class Commands {
 
         ApiClient api = ApiClient.INSTANCE;
 
-        List<Command> commands = new ArrayList<>();
         commands.add(new DefaultMessageCommand(output, modeHolder, api));
         commands.add(new LoginCommand(output, api));
         commands.add(new WhoCommand(output, api));
@@ -28,8 +27,6 @@ public class Commands {
         commands.add(new QCommand(output, modeHolder));
         commands.add(new HelpCommand(output));
         commands.add(new ExitCommand(output));
-
-        this.commands = commands;
     }
 
     public void execute(String inputLine) {

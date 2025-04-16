@@ -2,9 +2,11 @@ package ru.jafti.braintalk.cli.server_api;
 
 import ru.jafti.braintalk.cli.connection.ConnectionFactory;
 import ru.jafti.braintalk.cli.out.UserOutput;
+import ru.jafti.braintalk.cli.uuid_loader.UUIDLoader;
 
 import java.io.BufferedReader;
 import java.io.PrintWriter;
+import java.util.UUID;
 
 public class ApiClient implements SendMessageClient, ControlApiClient {
 
@@ -22,6 +24,10 @@ public class ApiClient implements SendMessageClient, ControlApiClient {
             var connection = connectionFactory.connect();
             serverIn = connection.getReader();
             serverOut = connection.getWriter();
+
+            UUID uuid = UUIDLoader.loadFromFile(null);
+            serverOut.println("/auto-login " + uuid.toString());
+            serverOut.flush();
 
             inputMessageHandler = new InputMessageHandler(serverIn, userOutput);
             inputMessageHandler.start();
