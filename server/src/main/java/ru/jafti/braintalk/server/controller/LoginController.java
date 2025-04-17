@@ -6,6 +6,8 @@ import ru.jafti.braintalk.server.connection.Session;
 
 import java.util.regex.Pattern;
 
+import static ru.jafti.braintalk.server.Constants.SYSTEM_TALKER;
+
 
 class LoginController implements Controller {
 
@@ -28,7 +30,7 @@ class LoginController implements Controller {
             String talker = matcher.group("talker");
             rendezvousPoint.goIn(talker, session);
             session.setLoggedIn(talker);
-            session.sendToOwner("SystemBot", "Welcome " + talker);
+            session.sendToOwner(SYSTEM_TALKER, "Welcome " + talker);
         }
     }
 }

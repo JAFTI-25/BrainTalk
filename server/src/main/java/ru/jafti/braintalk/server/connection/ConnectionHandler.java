@@ -1,7 +1,10 @@
 package ru.jafti.braintalk.server.connection;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.jafti.braintalk.server.RendezvousPoint;
 import ru.jafti.braintalk.server.controller.Controllers;
+import ru.jafti.braintalk.server.exception.MatchPatternException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,6 +16,8 @@ import java.util.List;
 import static ru.jafti.braintalk.server.Constants.*;
 
 public class ConnectionHandler extends Thread implements Session {
+
+    private static final Logger log = LoggerFactory.getLogger(ConnectionHandler.class);
 
     // Эндпоинты, доступные без авторизации
     private static final List<String> PUBLIC_ENDPOINTS = List.of(LOGIN, AUTO_LOGIN, REGISTER);
@@ -35,7 +40,7 @@ public class ConnectionHandler extends Thread implements Session {
     public void run() {
         try {
             handleClientConnection();
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         } finally {
             try {
@@ -58,13 +63,25 @@ public class ConnectionHandler extends Thread implements Session {
         String inputLine;
         while ((inputLine = in.readLine()) != null) {
             if (inputLine.isEmpty()) {
-                return;
+                continue;
             }
             if (!loggedIn && !isPublicEndpoint(inputLine)) {
-                out.println("Enter your login with '/login' command");
-                return;
+                sendToOwner(SYSTEM_TALKER,"You are not logged in. Enter your login with '/login' command");
+                continue;
             }
+
+            apply(inputLine);
+        }
+    }
+
+    private void apply(String inputLine) {
+        try {
             controllers.apply(inputLine, this);
+        } catch (MatchPatternException e) {
+            sendToOwner(SYSTEM_TALKER, "Syntax error. Use: " + e.getMessageWithCorrectSyntax());;
+        } catch (Exception e) {
+            log.error("System error", e);
+            sendToOwner(SYSTEM_TALKER, "Sorry, system error");;
         }
     }
 

@@ -37,7 +37,7 @@ public class SendController implements Controller {
             //TODO сделать получение UUID из session
             UUID fromTalkerGuid = UUID.randomUUID();
 
-            sendToMessageProcessor(fromTalker, fromTalkerGuid, talker , message);
+            sendToMessageProcessor(fromTalker, fromTalkerGuid, talker, message);
             Channel channel = rendezvousPoint.getOutput(talker);
             if (channel != null) {
                 channel.sendToOwner(session.getTalkerOwner(), message);
@@ -45,7 +45,7 @@ public class SendController implements Controller {
                 session.sendToOwner("SystemBot",
                         "Sorry, but talker " + talker + " is unavailable");
             }
-        } else{
+        } else {
             throw new MatchPatternException("/send <talker> <message>");
         }
     }
