@@ -21,6 +21,6 @@ public class AutoLoginControllerTest {
 
             uut.apply("/auto-login 11111111-1d13-4c32-95d9-18be5c07dc8b", session);
             verify(rendezvousPoint).goIn("Joe", session);
-            verify(session).setLoggedIn("Joe");
+            verify(session).setLoggedIn("Joe", testId);
         }
 }

@@ -32,7 +32,7 @@ public class AutoLoginController implements Controller{
                 UUID id = UUID.fromString(idString);
                 String talker = talkerProfileService.findById(id);
                 rendezvousPoint.goIn(talker, session);
-                session.setLoggedIn(talker);
+                session.setLoggedIn(talker, id);
                 session.sendToOwner("SystemBot", "Welcome " + talker);
             }
             catch(Exception e){

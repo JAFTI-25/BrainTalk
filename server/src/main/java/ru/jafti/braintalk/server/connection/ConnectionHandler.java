@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import ru.jafti.braintalk.server.RendezvousPoint;
 import ru.jafti.braintalk.server.controller.Controllers;
 import ru.jafti.braintalk.server.exception.MatchPatternException;
+import ru.jafti.braintalk.server.exception.UserException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.List;
+import java.util.UUID;
 
 import static ru.jafti.braintalk.server.Constants.*;
 
@@ -29,6 +31,7 @@ public class ConnectionHandler extends Thread implements Session {
     private PrintWriter out;
     private boolean loggedIn;
     private String talkerOwner;
+    private UUID talkerOwnerGuid;
 
     public ConnectionHandler(Socket clientSocket) {
         this.clientSocket = clientSocket;
@@ -79,6 +82,8 @@ public class ConnectionHandler extends Thread implements Session {
             controllers.apply(inputLine, this);
         } catch (MatchPatternException e) {
             sendToOwner(SYSTEM_TALKER, "Syntax error. Use: " + e.getMessageWithCorrectSyntax());;
+        } catch (UserException e) {
+            sendToOwner(SYSTEM_TALKER, e.getMessage());
         } catch (Exception e) {
             log.error("System error", e);
             sendToOwner(SYSTEM_TALKER, "Sorry, system error");;
@@ -101,14 +106,20 @@ public class ConnectionHandler extends Thread implements Session {
     }
 
     @Override
-    public void setLoggedIn(String talkerOwner) {
+    public void setLoggedIn(String talkerOwner, UUID talkerOwnerGuid) {
         this.loggedIn = true;
         this.talkerOwner = talkerOwner;
+        this.talkerOwnerGuid = talkerOwnerGuid;
     }
 
     @Override
     public String getTalkerOwner() {
         return talkerOwner;
+    }
+
+    @Override
+    public UUID getTalkerOwnerGuid() {
+        return talkerOwnerGuid;
     }
 }
 

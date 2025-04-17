@@ -27,7 +27,7 @@ public class Controllers {
 
         controllers.add(new RegisterController(talkerProfileService));
         controllers.add(new SendController(rendezvousPoint));
-        controllers.add(new LoginController(rendezvousPoint));
+        controllers.add(new LoginController(rendezvousPoint, talkerProfileService));
         controllers.add(new WhoController(rendezvousPoint));
         controllers.add(new AutoLoginController(talkerProfileService, rendezvousPoint));
 
