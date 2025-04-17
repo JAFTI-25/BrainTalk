@@ -1,4 +1,4 @@
-package ru.jafti.braintalk.server.persist;
+package ru.jafti.braintalk.talker.profile.impl.persist;
 
 import java.sql.Connection;
 

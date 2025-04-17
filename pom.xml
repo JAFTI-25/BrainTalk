@@ -12,6 +12,12 @@
     <modules>
         <module>server</module>
         <module>client-cli</module>
+        <module>message-processor-api</module>
+        <module>message-processor-impl</module>
+        <module>message-storage</module>
+        <module>online-registry-api</module>
+        <module>talker-profile-api</module>
+        <module>talker-profile-impl</module>
     </modules>
 
     <properties>
@@ -19,5 +25,20 @@
         <maven.compiler.target>23</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter</artifactId>
+                <version>3.4.4</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>6.2.5</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>
