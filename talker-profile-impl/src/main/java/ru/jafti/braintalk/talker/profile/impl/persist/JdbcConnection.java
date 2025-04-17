@@ -1,16 +1,22 @@
-package ru.jafti.braintalk.server.persist;
+package ru.jafti.braintalk.talker.profile.impl.persist;
+
+import jakarta.annotation.PostConstruct;
+import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+@Component
 public class JdbcConnection implements DbConnection {
+
     private Connection connection;
 
     public Connection getConnection() {
         return connection;
     }
 
+    @PostConstruct
     public void connect() {
         if (connection != null) {
             return;

@@ -6,4 +6,8 @@ public class MatchPatternException extends RuntimeException{
     public MatchPatternException(String message) {
         this.messageWithCorrectSyntax = message;
     }
+
+    public String getMessageWithCorrectSyntax() {
+        return messageWithCorrectSyntax;
+    }
 }

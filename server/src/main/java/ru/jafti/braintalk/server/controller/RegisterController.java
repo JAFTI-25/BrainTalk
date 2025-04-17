@@ -1,14 +1,16 @@
 package ru.jafti.braintalk.server.controller;
 
-import ru.jafti.braintalk.server.service.TalkerProfileService;
+import org.springframework.stereotype.Component;
 import ru.jafti.braintalk.server.connection.Session;
 import ru.jafti.braintalk.server.exception.MatchPatternException;
+import ru.jafti.braintalk.talker.profile.api.TalkerProfileService;
 
 import java.util.UUID;
 import java.util.regex.Pattern;
 
 import static ru.jafti.braintalk.server.Constants.SYSTEM_TALKER;
 
+@Component
 public class RegisterController implements Controller {
 
     private static final Pattern PATTERN = Pattern.compile("^/register (\\S+)");

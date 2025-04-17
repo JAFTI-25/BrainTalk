@@ -1,37 +1,33 @@
 package ru.jafti.braintalk.server.controller;
 
-import ru.jafti.braintalk.server.RendezvousPoint;
-import ru.jafti.braintalk.server.persist.DbInitializer;
-import ru.jafti.braintalk.server.service.TalkerProfileService;
-import ru.jafti.braintalk.server.persist.DbConnection;
-import ru.jafti.braintalk.server.service.TalkerProfileServiceImpl;
+import org.springframework.stereotype.Component;
 import ru.jafti.braintalk.server.connection.Session;
-import ru.jafti.braintalk.server.persist.JdbcConnection;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class Controllers {
-
-    public static final Controllers INSTANCE = new Controllers();
 
     private final List<Controller> controllers = new ArrayList<>();
 
-    private Controllers() {
-        var rendezvousPoint = RendezvousPoint.INSTANCE;
+    public Controllers(
+            RegisterController registerController,
+            SendController sendController,
+            LoginController loginController,
+            WhoController whoController,
+            AutoLoginController autoLoginController,
+            DefaultController defaultController
+    ) {
 
-        DbConnection dbConnection = new JdbcConnection();
-        dbConnection.connect();
-        DbInitializer.initialize(dbConnection);
-        var talkerProfileService = new TalkerProfileServiceImpl(dbConnection);
+        controllers.add(registerController);
+        controllers.add(sendController);
+        controllers.add(loginController);
+        controllers.add(whoController);
+        controllers.add(autoLoginController);
 
-        controllers.add(new RegisterController(talkerProfileService));
-        controllers.add(new SendController(rendezvousPoint));
-        controllers.add(new LoginController(rendezvousPoint));
-        controllers.add(new WhoController(rendezvousPoint));
-        controllers.add(new AutoLoginController(talkerProfileService, rendezvousPoint));
-
-        controllers.add(new DefaultController()); // Должен быть последним
+        //Должен быть последним Default
+        controllers.add(defaultController);
     }
 
     public void apply(String inputLine, Session out) {
