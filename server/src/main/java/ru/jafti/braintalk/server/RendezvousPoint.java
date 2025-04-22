@@ -1,6 +1,7 @@
 package ru.jafti.braintalk.server;
 
 
+import org.springframework.stereotype.Component;
 import ru.jafti.braintalk.server.connection.Channel;
 
 import java.util.ArrayList;
@@ -8,9 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Component
 public class RendezvousPoint {
-
-    public static final RendezvousPoint INSTANCE = new RendezvousPoint();
 
     private final List<String> activeTalkers = new ArrayList<>();
     private final Map<String, Channel> outputStreams = new HashMap<>();

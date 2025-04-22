@@ -1,8 +1,10 @@
-package ru.jafti.braintalk.message.processor;
+package ru.jafti.braintalk.message.processor.impl;
 
+import org.springframework.stereotype.Component;
 import ru.jafti.braintalk.message.processor.api.MessageProcessor;
 import ru.jafti.braintalk.message.processor.api.model.TalkersMessage;
 
+@Component
 public class MessageProcessorImpl implements MessageProcessor {
     @Override
     public void submit(TalkersMessage talkersMessage) {

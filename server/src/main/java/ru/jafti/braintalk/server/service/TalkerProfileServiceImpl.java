@@ -1,5 +1,7 @@
 package ru.jafti.braintalk.server.service;
 
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import ru.jafti.braintalk.server.persist.DbConnection;
 import ru.jafti.braintalk.server.persist.DbInitializer;
 
@@ -10,6 +12,7 @@ import java.sql.Statement;
 import java.util.Objects;
 import java.util.UUID;
 
+@Component
 public class TalkerProfileServiceImpl implements TalkerProfileService {
     private final static String SELECT_REQUEST = "SELECT * FROM " + DbInitializer.TABLE_NAME;
     private final static String INSERT_REQUEST_FORMAT = "INSERT INTO " + DbInitializer.TABLE_NAME + " VALUES ('%s', '%s')";

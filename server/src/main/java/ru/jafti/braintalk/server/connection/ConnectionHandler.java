@@ -2,6 +2,7 @@ package ru.jafti.braintalk.server.connection;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
 import ru.jafti.braintalk.server.RendezvousPoint;
 import ru.jafti.braintalk.server.controller.Controllers;
 import ru.jafti.braintalk.server.exception.MatchPatternException;
@@ -33,10 +34,13 @@ public class ConnectionHandler extends Thread implements Session {
     private String talkerOwner;
     private UUID talkerOwnerGuid;
 
-    public ConnectionHandler(Socket clientSocket) {
+    public ConnectionHandler(Socket clientSocket, ApplicationContext applicationContext) {
         this.clientSocket = clientSocket;
-        this.controllers = Controllers.INSTANCE;
-        this.rendezvousPoint = RendezvousPoint.INSTANCE;
+        this.controllers = applicationContext.getBean(Controllers.class);
+        this.rendezvousPoint = applicationContext.getBean(RendezvousPoint.class);
+
+
+        log.info("Created {}", this.controllers);
     }
 
     @Override
@@ -89,7 +93,6 @@ public class ConnectionHandler extends Thread implements Session {
             sendToOwner(SYSTEM_TALKER, "Sorry, system error");;
         }
     }
-
 
     private boolean isPublicEndpoint(String inputLine) {
         for (String publicEndpoint : PUBLIC_ENDPOINTS) {

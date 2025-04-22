@@ -1,6 +1,7 @@
 package ru.jafti.braintalk.server.controller;
 
 
+import org.springframework.stereotype.Component;
 import ru.jafti.braintalk.server.RendezvousPoint;
 import ru.jafti.braintalk.server.connection.Session;
 
@@ -9,8 +10,8 @@ import java.util.regex.Pattern;
 
 import static ru.jafti.braintalk.server.Constants.SYSTEM_TALKER;
 
-
-class WhoController implements Controller {
+@Component
+public class WhoController implements Controller {
 
     private static final Pattern PATTERN = Pattern.compile("^/who");
     private static final Pattern APPLICABLE_PATTERN = Pattern.compile("^/who");

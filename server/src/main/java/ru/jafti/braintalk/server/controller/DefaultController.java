@@ -1,11 +1,13 @@
 package ru.jafti.braintalk.server.controller;
 
 
+import org.springframework.stereotype.Component;
 import ru.jafti.braintalk.server.connection.Session;
 
 import static ru.jafti.braintalk.server.Constants.SYSTEM_TALKER;
 
-class DefaultController implements Controller {
+@Component
+public class DefaultController implements Controller {
 
     public boolean isApplicable(String inputLine) {
         return true;

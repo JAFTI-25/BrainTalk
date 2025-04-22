@@ -1,6 +1,7 @@
 package ru.jafti.braintalk.server.controller;
 
 
+import org.springframework.stereotype.Component;
 import ru.jafti.braintalk.server.RendezvousPoint;
 import ru.jafti.braintalk.server.connection.Session;
 import ru.jafti.braintalk.server.exception.UserException;
@@ -11,8 +12,8 @@ import java.util.regex.Pattern;
 
 import static ru.jafti.braintalk.server.Constants.SYSTEM_TALKER;
 
-
-class LoginController implements Controller {
+@Component
+public class LoginController implements Controller {
 
     private static final Pattern PATTERN = Pattern.compile("^/login +(?<talker>\\w+)");
     private static final Pattern APPLICABLE_PATTERN = Pattern.compile("^/login.*");
