@@ -3,6 +3,7 @@ package ru.jafti.braintalk.message.storage.api.model;
 import java.util.UUID;
 
 public record StorableMessage(
+        String messageId,
         From from,
         To to,
         Content content
@@ -21,7 +22,9 @@ public record StorableMessage(
         }
     }
 
-    public static StorableMessage buildFrom(String fromTalkerNickName,
+    public static StorableMessage buildFrom(
+            String messageId,
+            String fromTalkerNickName,
             UUID fromTalkerGuid,
             String toTalkerNickname,
             String message) {
@@ -29,6 +32,6 @@ public record StorableMessage(
         var to = new StorableMessage.To(toTalkerNickname);
         var content = new Content(message, Content.ContentType.TEXT);
 
-        return new StorableMessage(from, to, content);
+        return new StorableMessage(messageId, from, to, content);
     }
 }

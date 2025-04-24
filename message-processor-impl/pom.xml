@@ -35,6 +35,11 @@
             <artifactId>talker-profile-api</artifactId>
             <version>1.0</version>
         </dependency>
+        <dependency>
+            <groupId>ru.jafti</groupId>
+            <artifactId>message-storage-api</artifactId>
+            <version>1.0</version>
+        </dependency>
 
         <!-- SLF4J Logging -->
         <dependency>
