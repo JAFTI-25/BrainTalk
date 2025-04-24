@@ -12,12 +12,12 @@ import ru.jafti.braintalk.online.registry.SendMessageRequest;
 //import ru.jafti.braintalk.online.registry.impl.RendezvousPoint;
 import ru.jafti.braintalk.talker.profile.api.TalkerProfileService;
 import ru.jafti.braintalk.message.storage.api.MessageStorage;
+import ru.jafti.braintalk.common.CommonConstants;
 
 import java.util.UUID;
 
 @Component
 public class MessageProcessorImpl implements MessageProcessor {
-
     private static final Logger log = LoggerFactory.getLogger(MessageProcessorImpl.class);
 
     private final OnlineMessageChannel messageChannel;
@@ -44,6 +44,10 @@ public class MessageProcessorImpl implements MessageProcessor {
         UUID toTalkerGuid = talkerProfileService.findByNickname(toNickname);
         if (toTalkerGuid == null) {
             log.warn("Talker not found by nickname {}", toNickname);
+
+            String messageId = UUID.randomUUID().toString();
+            sendErrorBackToTalker(talkersMessage, messageId);
+
             return;
         }
 
@@ -71,6 +75,25 @@ public class MessageProcessorImpl implements MessageProcessor {
                     talkersMessage.to().nickname(),
                     talkersMessage.from().nickname(),
                     toTalkerGuid,
+                    messageId,
+                    new SendMessageRequest.Content(
+                            talkersMessage.content().rawContent(),
+                            SendMessageRequest.Content.ContentType.TEXT
+                    )
+            );
+
+            messageChannel.send(messageRequest);
+        }
+    }
+
+    private void sendErrorBackToTalker(TalkersMessage talkersMessage, String messageId) {
+        UUID senderId = talkersMessage.from().talkerGuid();
+
+        if (messageChannel.isOnline(senderId)) {
+            SendMessageRequest messageRequest = new SendMessageRequest(
+                    talkersMessage.from().nickname(),
+                    CommonConstants.SYSTEM_TALKER,
+                    senderId,
                     messageId,
                     new SendMessageRequest.Content(
                             talkersMessage.content().rawContent(),
