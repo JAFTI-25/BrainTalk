@@ -2,7 +2,8 @@ package ru.jafti.braintalk.server.controller;
 
 
 import org.springframework.stereotype.Component;
-import ru.jafti.braintalk.server.RendezvousPoint;
+import ru.jafti.braintalk.online.registry.GoInRequest;
+import ru.jafti.braintalk.online.registry.OnlineRegistry;
 import ru.jafti.braintalk.server.connection.Session;
 import ru.jafti.braintalk.server.exception.UserException;
 import ru.jafti.braintalk.server.service.TalkerProfileService;
@@ -18,11 +19,11 @@ public class LoginController implements Controller {
     private static final Pattern PATTERN = Pattern.compile("^/login +(?<talker>\\w+)");
     private static final Pattern APPLICABLE_PATTERN = Pattern.compile("^/login.*");
 
-    private final RendezvousPoint rendezvousPoint;
+    private final OnlineRegistry onlineRegistry;
     private final TalkerProfileService talkerProfileService;
 
-    public LoginController(RendezvousPoint rendezvousPoint, TalkerProfileService talkerProfileService) {
-        this.rendezvousPoint = rendezvousPoint;
+    public LoginController(OnlineRegistry onlineRegistry, TalkerProfileService talkerProfileService) {
+        this.onlineRegistry = onlineRegistry;
         this.talkerProfileService = talkerProfileService;
     }
 
@@ -38,7 +39,7 @@ public class LoginController implements Controller {
             if (talkerGuid == null) {
                 throw new UserException("user not found, please register");
             }
-            rendezvousPoint.goIn(talker, session);
+            onlineRegistry.goIn(new GoInRequest(talkerGuid, talker, session));
             session.setLoggedIn(talker, talkerGuid);
             session.sendToOwner(SYSTEM_TALKER, "Welcome " + talker);
         }

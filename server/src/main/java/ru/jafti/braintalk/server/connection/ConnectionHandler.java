@@ -3,7 +3,8 @@ package ru.jafti.braintalk.server.connection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
-import ru.jafti.braintalk.server.RendezvousPoint;
+import ru.jafti.braintalk.online.registry.GoOutRequest;
+import ru.jafti.braintalk.online.registry.OnlineRegistry;
 import ru.jafti.braintalk.server.controller.Controllers;
 import ru.jafti.braintalk.server.exception.MatchPatternException;
 import ru.jafti.braintalk.server.exception.UserException;
@@ -27,7 +28,7 @@ public class ConnectionHandler extends Thread implements Session {
 
     private final Socket clientSocket;
     private final Controllers controllers;
-    private final RendezvousPoint rendezvousPoint;
+    private final OnlineRegistry onlineRegistry;
     private BufferedReader in;
     private PrintWriter out;
     private boolean loggedIn;
@@ -37,8 +38,7 @@ public class ConnectionHandler extends Thread implements Session {
     public ConnectionHandler(Socket clientSocket, ApplicationContext applicationContext) {
         this.clientSocket = clientSocket;
         this.controllers = applicationContext.getBean(Controllers.class);
-        this.rendezvousPoint = applicationContext.getBean(RendezvousPoint.class);
-
+        this.onlineRegistry = applicationContext.getBean(OnlineRegistry.class);
 
         log.info("Created {}", this.controllers);
     }
@@ -54,7 +54,7 @@ public class ConnectionHandler extends Thread implements Session {
                 in.close();
                 out.close();
                 clientSocket.close();
-                rendezvousPoint.goOut(talkerOwner);
+                onlineRegistry.goOut(new GoOutRequest(talkerOwnerGuid, talkerOwner));
             } catch (IOException e1) {
                 System.err.println("Can't close resource");
             }
