@@ -16,7 +16,7 @@ public final class DbInitializer {
     public static void initialize(DbConnection dbConnection) {
         try (Statement statement = dbConnection.getConnection().createStatement()) {
             var createTableSql = String.format("CREATE TABLE IF NOT EXISTS %s (%s LONG PRIMARY KEY, %s UUID, %S UUID," +
-                            " %s TEXT, %s TIMESTAMP)",
+                            " %s TEXT, %s TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
                     TABLE_NAME, ID_COLUMN_NAME, FROM_TALKER_ID_COLUMN_NAME, TO_TALKER_ID_COLUMN_NAME,
                     CONTENT_COLUMN_NAME, TIME_COLUMN_NAME);
 
