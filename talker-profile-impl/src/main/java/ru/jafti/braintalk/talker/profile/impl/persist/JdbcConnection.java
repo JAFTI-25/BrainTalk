@@ -16,7 +16,6 @@ public class JdbcConnection implements DbConnection {
         return connection;
     }
 
-    @PostConstruct
     public void connect() {
         if (connection != null) {
             return;
