@@ -1,7 +1,7 @@
 package ru.jafti.braintalk.message.storage.api;
 
-import ru.jafti.braintalk.message.processor.api.model.TalkersMessage;
+import ru.jafti.braintalk.message.storage.api.model.StorableMessage;
 
 public interface MessageStorage {
-    void store(TalkersMessage talkerMessage);
+    void store(StorableMessage storableMessage);
 }
