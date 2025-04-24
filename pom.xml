@@ -14,11 +14,11 @@
         <module>client-cli</module>
         <module>message-processor-api</module>
         <module>message-processor-impl</module>
-        <module>message-storage</module>
         <module>online-registry-api</module>
         <module>talker-profile-api</module>
         <module>talker-profile-impl</module>
         <module>message-storage-api</module>
+        <module>message-storage-impl</module>
     </modules>
 
     <properties>
