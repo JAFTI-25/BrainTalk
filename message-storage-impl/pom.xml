@@ -20,7 +20,7 @@
     <dependencies>
         <dependency>
             <groupId>ru.jafti</groupId>
-            <artifactId>talker-profile-api</artifactId>
+            <artifactId>message-storage-api</artifactId>
             <version>1.0</version>
         </dependency>
         <!-- SLF4J Logging -->

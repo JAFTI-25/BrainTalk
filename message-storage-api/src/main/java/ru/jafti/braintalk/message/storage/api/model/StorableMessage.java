@@ -12,7 +12,7 @@ public record StorableMessage(
     public record From(String nickname, UUID talkerGuid) {
     }
 
-    public record To(String nickname) {
+    public record To(String nickname, UUID talkerGuid) {
     }
 
     public record Content(String rawContent, Content.ContentType contentType) {
@@ -27,9 +27,10 @@ public record StorableMessage(
             String fromTalkerNickName,
             UUID fromTalkerGuid,
             String toTalkerNickname,
+            UUID toTalkerGuid,
             String message) {
         var from = new From(fromTalkerNickName, fromTalkerGuid);
-        var to = new StorableMessage.To(toTalkerNickname);
+        var to = new StorableMessage.To(toTalkerNickname, toTalkerGuid);
         var content = new Content(message, Content.ContentType.TEXT);
 
         return new StorableMessage(messageId, from, to, content);
