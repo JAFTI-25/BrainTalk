@@ -13,35 +13,6 @@
     <packaging>pom</packaging>
 
     <dependencies>
-        <!-- project dependencies-->
-        <dependency>
-            <groupId>ru.jafti</groupId>
-            <artifactId>message-processor-api</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>ru.jafti</groupId>
-            <artifactId>online-registry-api</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>ru.jafti</groupId>
-            <artifactId>message-processor-impl</artifactId>
-            <version>1.0</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>ru.jafti</groupId>
-            <artifactId>talker-profile-api</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>ru.jafti</groupId>
-            <artifactId>talker-profile-impl</artifactId>
-            <version>1.0</version>
-            <scope>runtime</scope>
-        </dependency>
-
         <!--Spring-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
