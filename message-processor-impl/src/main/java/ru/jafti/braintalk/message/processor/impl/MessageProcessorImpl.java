@@ -2,6 +2,7 @@ package ru.jafti.braintalk.message.processor.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import ru.jafti.braintalk.message.processor.api.MessageProcessor;
 import ru.jafti.braintalk.message.processor.api.model.TalkersMessage;
@@ -33,6 +34,7 @@ public class MessageProcessorImpl implements MessageProcessor {
         this.messageStorage = messageStorage;
     }
 
+    @Async
     @Override
     public void submit(TalkersMessage talkersMessage) {
         log.trace("Submit message {}", talkersMessage);
