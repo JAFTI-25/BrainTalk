@@ -50,6 +50,7 @@ public class BrainTalkServerApplication {
         try {
             System.out.println("Server is listening on port " + serverSocket.getLocalPort());
 
+
             while (true) {
                 Socket socket = serverSocket.accept();
                 new ConnectionHandler(socket, applicationContext).start();
