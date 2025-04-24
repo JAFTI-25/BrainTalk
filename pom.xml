@@ -18,6 +18,7 @@
         <module>online-registry-api</module>
         <module>talker-profile-api</module>
         <module>talker-profile-impl</module>
+        <module>message-storage-api</module>
     </modules>
 
     <properties>
