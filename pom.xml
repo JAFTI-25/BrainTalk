@@ -19,6 +19,7 @@
         <module>talker-profile-api</module>
         <module>talker-profile-impl</module>
         <module>message-storage-api</module>
+        <module>common</module>
     </modules>
 
     <properties>
