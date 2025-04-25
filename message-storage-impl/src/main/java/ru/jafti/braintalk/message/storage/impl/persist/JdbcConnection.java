@@ -1,4 +1,4 @@
-package ru.jafti.persist;
+package ru.jafti.braintalk.message.storage.impl.persist;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
@@ -7,7 +7,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-@Component
+@Component("MessageStoreJdbcConnection")
 public class JdbcConnection implements DbConnection {
 
     private Connection connection;

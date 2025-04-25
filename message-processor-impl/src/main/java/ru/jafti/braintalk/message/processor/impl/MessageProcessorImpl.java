@@ -54,6 +54,7 @@ public class MessageProcessorImpl implements MessageProcessor {
                 talkersMessage.from().nickname(),
                 talkersMessage.from().talkerGuid(),
                 talkersMessage.to().nickname(),
+                toTalkerGuid,
                 talkersMessage.content().rawContent()
         );
 
