@@ -4,13 +4,13 @@ package ru.jafti.braintalk.online.registry.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import ru.jafti.braintalk.online.message.channel.api.OnlineMessageChannel;
+import ru.jafti.braintalk.online.message.channel.api.OutgoingMessage;
+import ru.jafti.braintalk.online.message.channel.api.SignalMessage;
 import ru.jafti.braintalk.online.registry.Channel;
 import ru.jafti.braintalk.online.registry.GoInRequest;
 import ru.jafti.braintalk.online.registry.GoOutRequest;
-import ru.jafti.braintalk.online.registry.OnlineMessageChannel;
 import ru.jafti.braintalk.online.registry.OnlineRegistry;
-import ru.jafti.braintalk.online.registry.OutgoingMessage;
-import ru.jafti.braintalk.online.registry.SignalMessage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static ru.jafti.braintalk.common.CommonConstants.SYSTEM_TALKER;
-import static ru.jafti.braintalk.online.registry.OutgoingMessage.Content.ContentType.TEXT;
+import static ru.jafti.braintalk.online.message.channel.api.OutgoingMessage.Content.ContentType.TEXT;
 
 @Component
 public class RendezvousPoint implements OnlineRegistry, OnlineMessageChannel {

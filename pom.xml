@@ -20,6 +20,7 @@
         <module>message-storage-api</module>
         <module>message-storage-impl</module>
         <module>common</module>
+        <module>online-message-channel-api</module>
     </modules>
 
     <properties>

@@ -1,4 +1,4 @@
-package ru.jafti.braintalk.online.registry;
+package ru.jafti.braintalk.online.message.channel.api;
 
 import java.util.UUID;
 
