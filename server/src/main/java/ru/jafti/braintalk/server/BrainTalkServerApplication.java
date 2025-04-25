@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-//import ru.jafti.braintalk.message.processor.MessageProcessorImpl;
 import ru.jafti.braintalk.server.connection.ConnectionHandler;
 import ru.jafti.braintalk.server.socket.SocketFactory;
 

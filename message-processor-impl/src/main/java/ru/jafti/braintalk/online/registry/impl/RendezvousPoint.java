@@ -9,13 +9,17 @@ import ru.jafti.braintalk.online.registry.GoInRequest;
 import ru.jafti.braintalk.online.registry.GoOutRequest;
 import ru.jafti.braintalk.online.registry.OnlineMessageChannel;
 import ru.jafti.braintalk.online.registry.OnlineRegistry;
-import ru.jafti.braintalk.online.registry.SendMessageRequest;
+import ru.jafti.braintalk.online.registry.OutgoingMessage;
+import ru.jafti.braintalk.online.registry.SignalMessage;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+
+import static ru.jafti.braintalk.common.CommonConstants.SYSTEM_TALKER;
+import static ru.jafti.braintalk.online.registry.OutgoingMessage.Content.ContentType.TEXT;
 
 @Component
 public class RendezvousPoint implements OnlineRegistry, OnlineMessageChannel {
@@ -48,22 +52,33 @@ public class RendezvousPoint implements OnlineRegistry, OnlineMessageChannel {
     }
 
     @Override
-    public void send(SendMessageRequest request) {
-        UUID toTalkerGuid = request.toTalkerGuid();
-        String messageId = request.messageId();
+    public void signal(SignalMessage message) {
+        UUID toTalkerGuid = message.to().talkerGuid();
+        if (!isOnline(toTalkerGuid)) {
+            return;
+        }
+
+        outputStreams.get(toTalkerGuid)
+                .sendToOwner(SYSTEM_TALKER, message.signalText());
+    }
+
+    @Override
+    public void send(OutgoingMessage message) {
+        UUID toTalkerGuid = message.to().talkerGuid();
+        String messageId = message.messageId();
 
         if (!isOnline(toTalkerGuid)) {
             log.warn("Talker is not online {} messageId {}", toTalkerGuid, messageId);
             return;
         }
 
-        SendMessageRequest.Content content = request.content();
-        if (content.contentType() != SendMessageRequest.Content.ContentType.TEXT) {
+        OutgoingMessage.Content content = message.content();
+        if (content.contentType() != TEXT) {
             log.warn("Unsupported content {} messageId {}", content.contentType(), messageId);
             return;
         }
 
-        outputStreams.get(request.toTalkerGuid())
-                .sendToOwner(request.fromTalker(), request.content().rawContent());
+        outputStreams.get(toTalkerGuid)
+                .sendToOwner(message.from().nickname(), message.content().rawContent());
     }
 }

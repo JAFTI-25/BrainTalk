@@ -11,7 +11,7 @@ import ru.jafti.braintalk.talker.profile.api.TalkerProfileService;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
-import static ru.jafti.braintalk.server.Constants.SYSTEM_TALKER;
+import static ru.jafti.braintalk.common.CommonConstants.SYSTEM_TALKER;
 
 @Component
 public class LoginController implements Controller {
