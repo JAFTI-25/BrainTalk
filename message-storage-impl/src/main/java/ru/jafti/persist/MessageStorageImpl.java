@@ -1,15 +1,16 @@
 package ru.jafti.persist;
 
-import org.springframework.stereotype.Component;
 import ru.jafti.braintalk.message.storage.api.MessageStorage;
 import ru.jafti.braintalk.message.storage.api.model.StorableMessage;
+import ru.jafti.braintalk.message.storage.impl.persist.DbConnection;
+import ru.jafti.braintalk.message.storage.impl.persist.DbInitializer;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.UUID;
 
-@Component
+// Небезопасный код
 public class MessageStorageImpl implements MessageStorage {
     private final static String INSERT_REQUEST_FORMAT = "INSERT INTO " + DbInitializer.TABLE_NAME + " VALUES ('%s', " +
             "'%s', '%s', '%s')";

@@ -19,6 +19,7 @@ import java.util.concurrent.Executors;
         "ru.jafti.braintalk",
         "ru.jafti.message.processor.impl",
         "ru.jafti.braintalk.talker.profile.impl",
+        "ru.jafti.braintalk.message.storage.impl",
 })
 @SpringBootApplication
 public class BrainTalkServerApplication {
