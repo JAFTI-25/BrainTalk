@@ -17,6 +17,7 @@ import java.net.Socket;
 import java.util.List;
 import java.util.UUID;
 
+import static ru.jafti.braintalk.common.CommonConstants.SYSTEM_TALKER;
 import static ru.jafti.braintalk.server.Constants.*;
 
 public class ConnectionHandler extends Thread implements Session {

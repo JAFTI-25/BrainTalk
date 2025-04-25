@@ -7,10 +7,7 @@ public record TalkersMessage(
         To to,
         Content content,
         String messageId
-
 ) {
-
-
 
     public record From(String nickname, UUID talkerGuid) {
     }

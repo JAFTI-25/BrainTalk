@@ -7,7 +7,8 @@ import ru.jafti.braintalk.message.processor.api.MessageProcessor;
 import ru.jafti.braintalk.message.processor.api.model.TalkersMessage;
 import ru.jafti.braintalk.message.storage.api.model.StorableMessage;
 import ru.jafti.braintalk.online.registry.OnlineMessageChannel;
-import ru.jafti.braintalk.online.registry.SendMessageRequest;
+import ru.jafti.braintalk.online.registry.OutgoingMessage;
+import ru.jafti.braintalk.online.registry.SignalMessage;
 import ru.jafti.braintalk.talker.profile.api.TalkerProfileService;
 import ru.jafti.braintalk.message.storage.api.MessageStorage;
 
@@ -41,15 +42,36 @@ public class MessageProcessorImpl implements MessageProcessor {
         UUID toTalkerGuid = talkerProfileService.findByNickname(toNickname);
         if (toTalkerGuid == null) {
             log.warn("Talker not found by nickname {}", toNickname);
+            signal(talkersMessage.from().talkerGuid(), "Talker " + toNickname + " not registered");
             return;
         }
 
         String messageId = talkersMessage.messageId();
-        //3. Переслать сообщение толкеру если он онлайн
-        sendToOnlineTalker(talkersMessage, toTalkerGuid, messageId);
+        sendMessage(talkersMessage, toTalkerGuid, messageId);
+        storeMessage(talkersMessage, messageId, toTalkerGuid);
+    }
 
-        //4. Сохранить сообщение с message-storage
-        StorableMessage message = StorableMessage.buildFrom(
+    private void signal(UUID talkerGuid, String message) {
+        messageChannel.signal(new SignalMessage(new SignalMessage.To(talkerGuid), message));
+    }
+
+    private void sendMessage(TalkersMessage talkersMessage, UUID toTalkerGuid, String messageId) {
+        if (!messageChannel.isOnline(toTalkerGuid)) {
+            return;
+        }
+
+        var outgoingMessage = OutgoingMessage.buildFrom(
+                messageId,
+                talkersMessage.from().nickname(),
+                toTalkerGuid,
+                talkersMessage.content().rawContent()
+        );
+
+        messageChannel.send(outgoingMessage);
+    }
+
+    private void storeMessage(TalkersMessage talkersMessage, String messageId, UUID toTalkerGuid) {
+        var message = StorableMessage.buildFrom(
                 messageId,
                 talkersMessage.from().nickname(),
                 talkersMessage.from().talkerGuid(),
@@ -59,22 +81,5 @@ public class MessageProcessorImpl implements MessageProcessor {
         );
 
         messageStorage.store(message);
-    }
-
-    private void sendToOnlineTalker(TalkersMessage talkersMessage, UUID toTalkerGuid, String messageId) {
-        if (messageChannel.isOnline(toTalkerGuid)) {
-            SendMessageRequest messageRequest = new SendMessageRequest(
-                    talkersMessage.to().nickname(),
-                    talkersMessage.from().nickname(),
-                    toTalkerGuid,
-                    messageId,
-                    new SendMessageRequest.Content(
-                            talkersMessage.content().rawContent(),
-                            SendMessageRequest.Content.ContentType.TEXT
-                    )
-            );
-
-            messageChannel.send(messageRequest);
-        }
     }
 }

@@ -4,7 +4,8 @@ package ru.jafti.braintalk.server.controller;
 import org.springframework.stereotype.Component;
 import ru.jafti.braintalk.server.connection.Session;
 
-import static ru.jafti.braintalk.server.Constants.SYSTEM_TALKER;
+import static ru.jafti.braintalk.common.CommonConstants.SYSTEM_TALKER;
+
 
 @Component
 public class DefaultController implements Controller {

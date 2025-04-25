@@ -8,7 +8,7 @@ import ru.jafti.braintalk.server.connection.Session;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import static ru.jafti.braintalk.server.Constants.SYSTEM_TALKER;
+import static ru.jafti.braintalk.common.CommonConstants.SYSTEM_TALKER;
 
 @Component
 public class WhoController implements Controller {
