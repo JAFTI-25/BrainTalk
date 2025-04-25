@@ -6,9 +6,9 @@ import org.springframework.stereotype.Component;
 import ru.jafti.braintalk.message.processor.api.MessageProcessor;
 import ru.jafti.braintalk.message.processor.api.model.TalkersMessage;
 import ru.jafti.braintalk.message.storage.api.model.StorableMessage;
-import ru.jafti.braintalk.online.registry.OnlineMessageChannel;
-import ru.jafti.braintalk.online.registry.OutgoingMessage;
-import ru.jafti.braintalk.online.registry.SignalMessage;
+import ru.jafti.braintalk.online.message.channel.api.OnlineMessageChannel;
+import ru.jafti.braintalk.online.message.channel.api.OutgoingMessage;
+import ru.jafti.braintalk.online.message.channel.api.SignalMessage;
 import ru.jafti.braintalk.talker.profile.api.TalkerProfileService;
 import ru.jafti.braintalk.message.storage.api.MessageStorage;
 
