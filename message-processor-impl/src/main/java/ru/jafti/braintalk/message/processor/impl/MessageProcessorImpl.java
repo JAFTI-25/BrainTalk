@@ -8,7 +8,6 @@ import ru.jafti.braintalk.message.processor.api.model.TalkersMessage;
 import ru.jafti.braintalk.message.storage.api.model.StorableMessage;
 import ru.jafti.braintalk.online.registry.OnlineMessageChannel;
 import ru.jafti.braintalk.online.registry.SendMessageRequest;
-//import ru.jafti.braintalk.online.registry.impl.RendezvousPoint;
 import ru.jafti.braintalk.talker.profile.api.TalkerProfileService;
 import ru.jafti.braintalk.message.storage.api.MessageStorage;
 
@@ -45,9 +44,7 @@ public class MessageProcessorImpl implements MessageProcessor {
             return;
         }
 
-        //2. Сгенерировать ID сообщения
-        String messageId = UUID.randomUUID().toString();
-
+        String messageId = talkersMessage.messageId();
         //3. Переслать сообщение толкеру если он онлайн
         sendToOnlineTalker(talkersMessage, toTalkerGuid, messageId);
 
