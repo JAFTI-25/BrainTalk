@@ -37,7 +37,6 @@ public class MessageProcessorImpl implements MessageProcessor {
     public void submit(TalkersMessage talkersMessage) {
         log.trace("Submit message {}", talkersMessage);
 
-        //1. Проверить что пользователь, которому пересылается сообщение, существует
         String toNickname = talkersMessage.to().nickname();
         UUID toTalkerGuid = talkerProfileService.findByNickname(toNickname);
         if (toTalkerGuid == null) {
@@ -46,22 +45,27 @@ public class MessageProcessorImpl implements MessageProcessor {
             return;
         }
 
-        String messageId = talkersMessage.messageId();
-        sendMessage(talkersMessage, toTalkerGuid, messageId);
-        storeMessage(talkersMessage, messageId, toTalkerGuid);
+        sendMessage(talkersMessage, toTalkerGuid);
+        storeMessage(talkersMessage, toTalkerGuid);
     }
 
     private void signal(UUID talkerGuid, String message) {
-        messageChannel.signal(new SignalMessage(new SignalMessage.To(talkerGuid), message));
+        if (!messageChannel.isOnline(talkerGuid)) {
+            return;
+        }
+
+        var signalMessage = new SignalMessage(new SignalMessage.To(talkerGuid), message);
+
+        messageChannel.signal(signalMessage);
     }
 
-    private void sendMessage(TalkersMessage talkersMessage, UUID toTalkerGuid, String messageId) {
+    private void sendMessage(TalkersMessage talkersMessage, UUID toTalkerGuid) {
         if (!messageChannel.isOnline(toTalkerGuid)) {
             return;
         }
 
         var outgoingMessage = OutgoingMessage.buildFrom(
-                messageId,
+                talkersMessage.messageId(),
                 talkersMessage.from().nickname(),
                 toTalkerGuid,
                 talkersMessage.content().rawContent()
@@ -70,9 +74,9 @@ public class MessageProcessorImpl implements MessageProcessor {
         messageChannel.send(outgoingMessage);
     }
 
-    private void storeMessage(TalkersMessage talkersMessage, String messageId, UUID toTalkerGuid) {
+    private void storeMessage(TalkersMessage talkersMessage, UUID toTalkerGuid) {
         var message = StorableMessage.buildFrom(
-                messageId,
+                talkersMessage.messageId(),
                 talkersMessage.from().nickname(),
                 talkersMessage.from().talkerGuid(),
                 talkersMessage.to().nickname(),
