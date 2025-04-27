@@ -17,40 +17,37 @@
         <dependency>
             <groupId>ru.jafti</groupId>
             <artifactId>message-processor-api</artifactId>
-            <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>ru.jafti</groupId>
             <artifactId>online-registry-api</artifactId>
-            <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>ru.jafti</groupId>
             <artifactId>message-processor-impl</artifactId>
-            <version>1.0</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>ru.jafti</groupId>
             <artifactId>talker-profile-api</artifactId>
-            <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>ru.jafti</groupId>
             <artifactId>talker-profile-impl</artifactId>
-            <version>1.0</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>ru.jafti</groupId>
+            <artifactId>message-storage-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ru.jafti</groupId>
             <artifactId>message-storage-impl</artifactId>
-            <version>1.0</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>ru.jafti</groupId>
             <artifactId>common</artifactId>
-            <version>1.0</version>
         </dependency>
 
         <!--Spring-->
@@ -62,44 +59,46 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
 
         <!--Snowflake-->
         <dependency>
             <groupId>xyz.downgoon</groupId>
             <artifactId>snowflake</artifactId>
-            <version>1.0.0</version>
         </dependency>
 
         <!-- SLF4J Logging -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>2.0.12</version>
         </dependency>
         <!-- Logback (реализация SLF4J) -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.5.13</version>
         </dependency>
         <!-- DB-->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.7.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jdbc</artifactId>
         </dependency>
 
         <!-- TESTS-->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.12.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>5.16.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
