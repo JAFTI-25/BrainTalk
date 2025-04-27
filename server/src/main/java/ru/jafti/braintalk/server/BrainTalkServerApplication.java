@@ -7,6 +7,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 //import ru.jafti.braintalk.message.processor.MessageProcessorImpl;
+import org.springframework.scheduling.annotation.EnableAsync;
 import ru.jafti.braintalk.server.connection.ConnectionHandler;
 import ru.jafti.braintalk.server.socket.SocketFactory;
 
@@ -21,6 +22,7 @@ import java.util.concurrent.Executors;
         "ru.jafti.braintalk.talker.profile.impl",
 })
 @SpringBootApplication
+@EnableAsync
 public class BrainTalkServerApplication {
 
     private final ExecutorService executor = Executors.newFixedThreadPool(2);

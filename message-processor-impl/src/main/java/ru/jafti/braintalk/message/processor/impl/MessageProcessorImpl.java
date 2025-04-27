@@ -70,37 +70,43 @@ public class MessageProcessorImpl implements MessageProcessor {
     }
 
     private void sendToOnlineTalker(TalkersMessage talkersMessage, UUID toTalkerGuid, String messageId) {
-        if (messageChannel.isOnline(toTalkerGuid)) {
-            SendMessageRequest messageRequest = new SendMessageRequest(
-                    talkersMessage.to().nickname(),
-                    talkersMessage.from().nickname(),
-                    toTalkerGuid,
-                    messageId,
-                    new SendMessageRequest.Content(
-                            talkersMessage.content().rawContent(),
-                            SendMessageRequest.Content.ContentType.TEXT
-                    )
-            );
-
-            messageChannel.send(messageRequest);
-        }
+        sendMessage(
+                talkersMessage.to().nickname(),
+                talkersMessage.from().nickname(),
+                toTalkerGuid,
+                messageId,
+                talkersMessage.content().rawContent()
+        );
     }
 
     private void sendErrorBackToTalker(TalkersMessage talkersMessage, String messageId) {
         UUID senderId = talkersMessage.from().talkerGuid();
+        String errorMessage = String.format(
+                "Error when sending a message to '%s'.",
+                talkersMessage.to().nickname()
+        );
 
-        if (messageChannel.isOnline(senderId)) {
+        sendMessage(
+                talkersMessage.from().nickname(),
+                CommonConstants.SYSTEM_TALKER,
+                senderId,
+                messageId,
+                errorMessage
+        );
+    }
+
+    private void sendMessage(String toNickname, String fromNickname, UUID receiverGuid, String messageId, String content) {
+        if (messageChannel.isOnline(receiverGuid)) {
             SendMessageRequest messageRequest = new SendMessageRequest(
-                    talkersMessage.from().nickname(),
-                    CommonConstants.SYSTEM_TALKER,
-                    senderId,
+                    toNickname,
+                    fromNickname,
+                    receiverGuid,
                     messageId,
                     new SendMessageRequest.Content(
-                            talkersMessage.content().rawContent(),
+                            content,
                             SendMessageRequest.Content.ContentType.TEXT
                     )
             );
-
             messageChannel.send(messageRequest);
         }
     }
