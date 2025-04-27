@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jdbc.repository.config.EnableJdbcRepositories;
 import ru.jafti.braintalk.server.connection.ConnectionHandler;
 import ru.jafti.braintalk.server.socket.SocketFactory;
 
@@ -14,6 +15,7 @@ import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+@EnableJdbcRepositories(basePackages = "ru.jafti.braintalk.message.storage.impl.repository")
 @ComponentScan(basePackages = {
         "ru.jafti.braintalk",
         "ru.jafti.message.processor.impl",
