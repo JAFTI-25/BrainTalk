@@ -10,6 +10,7 @@ import ru.jafti.braintalk.message.storage.api.model.StorableMessage;
 import ru.jafti.braintalk.online.registry.OnlineMessageChannel;
 import ru.jafti.braintalk.online.registry.SendMessageRequest;
 //import ru.jafti.braintalk.online.registry.impl.RendezvousPoint;
+import ru.jafti.braintalk.online.registry.SignalMessage;
 import ru.jafti.braintalk.talker.profile.api.TalkerProfileService;
 import ru.jafti.braintalk.message.storage.api.MessageStorage;
 import ru.jafti.braintalk.common.CommonConstants;
@@ -45,9 +46,7 @@ public class MessageProcessorImpl implements MessageProcessor {
         if (toTalkerGuid == null) {
             log.warn("Talker not found by nickname {}", toNickname);
 
-            String messageId = UUID.randomUUID().toString();
-            sendErrorBackToTalker(talkersMessage, messageId);
-
+            sendErrorSignal(talkersMessage);
             return;
         }
 
@@ -79,20 +78,23 @@ public class MessageProcessorImpl implements MessageProcessor {
         );
     }
 
-    private void sendErrorBackToTalker(TalkersMessage talkersMessage, String messageId) {
+    private void sendErrorSignal(TalkersMessage talkersMessage) {
         UUID senderId = talkersMessage.from().talkerGuid();
         String errorMessage = String.format(
-                "Error when sending a message to '%s'.",
+                "Error when sending a message to '%s'",
                 talkersMessage.to().nickname()
         );
 
-        sendMessage(
-                talkersMessage.from().nickname(),
-                CommonConstants.SYSTEM_TALKER,
-                senderId,
-                messageId,
-                errorMessage
-        );
+        if (messageChannel.isOnline(senderId)) {
+            SignalMessage signalMessage = SignalMessage.buildFrom(
+                    senderId,
+                    errorMessage
+            );
+
+            messageChannel.signal(signalMessage);
+        } else {
+            log.debug("Sender {} is offline. Signal not sent", senderId);
+        }
     }
 
     private void sendMessage(String toNickname, String fromNickname, UUID receiverGuid, String messageId, String content) {

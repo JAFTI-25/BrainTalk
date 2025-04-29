@@ -4,12 +4,14 @@ package ru.jafti.braintalk.online.registry.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import ru.jafti.braintalk.common.CommonConstants;
 import ru.jafti.braintalk.online.registry.Channel;
 import ru.jafti.braintalk.online.registry.GoInRequest;
 import ru.jafti.braintalk.online.registry.GoOutRequest;
 import ru.jafti.braintalk.online.registry.OnlineMessageChannel;
 import ru.jafti.braintalk.online.registry.OnlineRegistry;
 import ru.jafti.braintalk.online.registry.SendMessageRequest;
+import ru.jafti.braintalk.online.registry.SignalMessage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,5 +67,22 @@ public class RendezvousPoint implements OnlineRegistry, OnlineMessageChannel {
 
         outputStreams.get(request.toTalkerGuid())
                 .sendToOwner(request.fromTalker(), request.content().rawContent());
+    }
+
+    @Override
+    public void signal(SignalMessage message) {
+        UUID toTalkerGuid = message.to().talkerGuid();
+
+        if (!isOnline(toTalkerGuid)) {
+            log.warn("Talker is not online to receive signal message: {}", toTalkerGuid);
+            return;
+        }
+
+        String signalText = message.signalText();
+
+        outputStreams.get(toTalkerGuid)
+                .sendToOwner(CommonConstants.SYSTEM_TALKER, signalText);
+
+        log.debug("Signal message sent to {}: {}", toTalkerGuid, signalText);
     }
 }
