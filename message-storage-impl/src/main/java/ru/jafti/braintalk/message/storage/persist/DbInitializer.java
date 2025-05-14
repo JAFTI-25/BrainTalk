@@ -1,19 +1,30 @@
-package ru.jafti.persist;
+package ru.jafti.braintalk.message.storage.persist;
 
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import jakarta.annotation.PostConstruct;
+
 public final class DbInitializer {
-    public final static String TABLE_NAME = "chat_history";
-    public final static String ID_COLUMN_NAME = "message_id";
+    public static final String TABLE_NAME = "chat_history";
+    public static final String ID_COLUMN_NAME = "message_id";
 
-    public final static String FROM_TALKER_ID_COLUMN_NAME = "from_talker";
-    public final static String TO_TALKER_ID_COLUMN_NAME = "to_talker";
+    public static final String FROM_TALKER_ID_COLUMN_NAME = "from_talker";
+    public static final String TO_TALKER_ID_COLUMN_NAME = "to_talker";
 
-    public final static String CONTENT_COLUMN_NAME = "content";
-    public final static String TIME_COLUMN_NAME = "created_at";
+    public static final String CONTENT_COLUMN_NAME = "content";
+    public static final String TIME_COLUMN_NAME = "created_at";
 
+    public final DbConnection dbConnection;
+
+    public DbInitializer(DbConnection connection) {
+        dbConnection = connection;
+    }
+
+    @PostConstruct
     public static void initialize(DbConnection dbConnection) {
+        dbConnection.connect();
+
         try (Statement statement = dbConnection.getConnection().createStatement()) {
             var createTableSql = String.format("CREATE TABLE IF NOT EXISTS %s (%s LONG PRIMARY KEY, %s UUID, %S UUID," +
                             " %s TEXT, %s TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",

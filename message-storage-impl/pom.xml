@@ -23,6 +23,11 @@
             <artifactId>message-storage-api</artifactId>
             <version>1.0</version>
         </dependency>
+        <dependency>
+            <groupId>ru.jafti</groupId>
+            <artifactId>talker-profile-impl</artifactId>
+            <version>1.0</version>
+        </dependency>
         <!-- SLF4J Logging -->
         <dependency>
             <groupId>org.slf4j</groupId>

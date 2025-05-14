@@ -1,4 +1,4 @@
-package ru.jafti.persist;
+package ru.jafti.braintalk.message.storage.persist;
 
 import java.sql.Connection;
 

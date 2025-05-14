@@ -11,7 +11,7 @@ public record TalkersMessage(
     public record From(String nickname, UUID talkerGuid) {
     }
 
-    public record To(String nickname) {
+    public record To(String nickname, UUID talkerGuid) {
     }
 
     public record Content(String rawContent, ContentType contentType) {
@@ -24,9 +24,10 @@ public record TalkersMessage(
     public static TalkersMessage buildFrom(String fromTalkerNickName,
                                            UUID fromTalkerGuid,
                                            String toTalkerNickname,
+                                           UUID toTalkerGuid,
                                            String message) {
         var from = new From(fromTalkerNickName, fromTalkerGuid);
-        var to = new To(toTalkerNickname);
+        var to = new To(toTalkerNickname, toTalkerGuid);
         var content = new Content(message, Content.ContentType.TEXT);
 
         return new TalkersMessage(from, to, content);

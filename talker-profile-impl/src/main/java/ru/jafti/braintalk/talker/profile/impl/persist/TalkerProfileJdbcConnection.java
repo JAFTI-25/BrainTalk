@@ -8,7 +8,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 @Component
-public class JdbcConnection implements DbConnection {
+public class TalkerProfileJdbcConnection implements DbConnection {
 
     private Connection connection;
 

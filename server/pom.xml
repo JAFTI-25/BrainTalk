@@ -41,6 +41,16 @@
             <version>1.0</version>
             <scope>runtime</scope>
         </dependency>
+        <dependency>
+            <groupId>ru.jafti</groupId>    
+            <artifactId>message-storage-api</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>ru.jafti</groupId>    
+            <artifactId>message-storage-impl</artifactId>
+            <version>1.0</version>
+        </dependency>
 
         <!--Spring-->
         <dependency>
