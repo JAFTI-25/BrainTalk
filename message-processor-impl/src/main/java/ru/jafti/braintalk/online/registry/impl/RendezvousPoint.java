@@ -33,12 +33,14 @@ public class RendezvousPoint implements OnlineRegistry, OnlineMessageChannel {
     public void goIn(GoInRequest request) {
         activeTalkers.add(request.nickname());
         outputStreams.put(request.talkerGuid(), request.channel());
+        log.debug("Talker {} connected", request.nickname());
     }
 
     @Override
     public void goOut(GoOutRequest request) {
         activeTalkers.remove(request.nickname());
         outputStreams.remove(request.talkerGuid());
+        log.debug("Talker {} disconnected", request.nickname());
     }
 
     @Override

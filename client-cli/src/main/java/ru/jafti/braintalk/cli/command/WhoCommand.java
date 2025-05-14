@@ -1,9 +1,11 @@
 package ru.jafti.braintalk.cli.command;
 
 
+import org.springframework.stereotype.Component;
 import ru.jafti.braintalk.cli.out.UserOutput;
 import ru.jafti.braintalk.cli.server_api.ControlApiClient;
 
+@Component
 public class WhoCommand implements Command {
 
     private final UserOutput out;

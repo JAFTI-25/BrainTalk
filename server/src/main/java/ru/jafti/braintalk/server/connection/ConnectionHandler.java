@@ -40,8 +40,6 @@ public class ConnectionHandler extends Thread implements Session {
         this.clientSocket = clientSocket;
         this.controllers = applicationContext.getBean(Controllers.class);
         this.onlineRegistry = applicationContext.getBean(OnlineRegistry.class);
-
-        log.info("Created {}", this.controllers);
     }
 
     @Override
@@ -52,10 +50,13 @@ public class ConnectionHandler extends Thread implements Session {
             throw new RuntimeException(e);
         } finally {
             try {
+                log.debug("Client disconnected");
                 in.close();
                 out.close();
                 clientSocket.close();
-                onlineRegistry.goOut(new GoOutRequest(talkerOwnerGuid, talkerOwner));
+                if (loggedIn) {
+                    onlineRegistry.goOut(new GoOutRequest(talkerOwnerGuid, talkerOwner));
+                }
             } catch (IOException e1) {
                 System.err.println("Can't close resource");
             }
@@ -63,7 +64,7 @@ public class ConnectionHandler extends Thread implements Session {
     }
 
     private void handleClientConnection() throws IOException {
-        System.out.println("-- Client connected");
+        log.debug("Client connected");
 
         in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         out = new PrintWriter(clientSocket.getOutputStream(), true);
@@ -74,7 +75,7 @@ public class ConnectionHandler extends Thread implements Session {
                 continue;
             }
             if (!loggedIn && !isPublicEndpoint(inputLine)) {
-                sendToOwner(SYSTEM_TALKER,"You are not logged in. Enter your login with '/login' command");
+                sendToOwner(SYSTEM_TALKER, "You are not logged in. Enter your login with '/login' command");
                 continue;
             }
 
@@ -86,12 +87,14 @@ public class ConnectionHandler extends Thread implements Session {
         try {
             controllers.apply(inputLine, this);
         } catch (MatchPatternException e) {
-            sendToOwner(SYSTEM_TALKER, "Syntax error. Use: " + e.getMessageWithCorrectSyntax());;
+            sendToOwner(SYSTEM_TALKER, "Syntax error. Use: " + e.getMessageWithCorrectSyntax());
+            ;
         } catch (UserException e) {
             sendToOwner(SYSTEM_TALKER, e.getMessage());
         } catch (Exception e) {
             log.error("System error", e);
-            sendToOwner(SYSTEM_TALKER, "Sorry, system error");;
+            sendToOwner(SYSTEM_TALKER, "Sorry, system error");
+            ;
         }
     }
 

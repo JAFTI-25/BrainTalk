@@ -1,7 +1,9 @@
 package ru.jafti.braintalk.cli.command;
 
+import org.springframework.stereotype.Component;
 import ru.jafti.braintalk.cli.out.UserOutput;
 
+@Component
 public class HelpCommand implements Command {
     private static final String HELP_MESSAGE = """
                         Available commands:

@@ -1,5 +1,6 @@
 package ru.jafti.braintalk.server.controller;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import ru.jafti.braintalk.server.connection.Session;
 import ru.jafti.braintalk.server.exception.MatchPatternException;
@@ -10,7 +11,8 @@ import java.util.regex.Pattern;
 
 import static ru.jafti.braintalk.common.CommonConstants.SYSTEM_TALKER;
 
-@Component
+@Deprecated
+@Component("RegisterControllerSocketImpl")
 public class RegisterController implements Controller {
 
     private static final Pattern PATTERN = Pattern.compile("^/register (\\S+)");

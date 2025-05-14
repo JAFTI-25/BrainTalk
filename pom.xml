@@ -21,6 +21,9 @@
         <module>message-storage-impl</module>
         <module>common</module>
         <module>online-message-channel-api</module>
+        <module>client-common</module>
+        <module>server-api</module>
+        <module>client-lib</module>
     </modules>
 
     <properties>
@@ -74,6 +77,21 @@
             <dependency>
                 <groupId>ru.jafti</groupId>
                 <artifactId>common</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>ru.jafti</groupId>
+                <artifactId>client-common</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>ru.jafti</groupId>
+                <artifactId>server-api</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>ru.jafti</groupId>
+                <artifactId>client-lib</artifactId>
                 <version>1.0</version>
             </dependency>
 

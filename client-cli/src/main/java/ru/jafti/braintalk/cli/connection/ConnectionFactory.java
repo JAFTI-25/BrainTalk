@@ -11,16 +11,4 @@ public interface ConnectionFactory {
         BufferedReader getReader();
         PrintWriter getWriter();
     }
-
-    class Impl {
-
-        public static ConnectionFactory get() {
-            // TODO (avtseben): по умолчанию работаем в SSL режиме
-            // Нужно вынести в настройку клиента какой тип соединения использовать
-            if (true) {
-                return new SSLConnectionFactory();
-            }
-            return new RawSocketConnectionFactory();
-        }
-    }
 }
