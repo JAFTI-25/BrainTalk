@@ -49,6 +49,10 @@
             <groupId>ru.jafti</groupId>
             <artifactId>common</artifactId>
         </dependency>
+        <dependency>
+            <groupId>ru.jafti</groupId>
+            <artifactId>server-api</artifactId>
+        </dependency>
 
         <!--Spring-->
         <dependency>

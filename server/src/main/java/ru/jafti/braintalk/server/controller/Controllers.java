@@ -1,5 +1,6 @@
 package ru.jafti.braintalk.server.controller;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import ru.jafti.braintalk.server.connection.Session;
 
@@ -12,7 +13,7 @@ public class Controllers {
     private final List<Controller> controllers = new ArrayList<>();
 
     public Controllers(
-            RegisterController registerController,
+            @Qualifier("RegisterControllerSocketImpl") RegisterController registerController,
             SendController sendController,
             LoginController loginController,
             WhoController whoController,

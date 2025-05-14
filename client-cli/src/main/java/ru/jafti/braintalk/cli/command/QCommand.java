@@ -1,9 +1,11 @@
 package ru.jafti.braintalk.cli.command;
 
 
+import org.springframework.stereotype.Component;
 import ru.jafti.braintalk.cli.mode.ModeHolder;
 import ru.jafti.braintalk.cli.out.TerminalOutput;
 
+@Component
 public class QCommand implements Command {
 
     private final TerminalOutput out;

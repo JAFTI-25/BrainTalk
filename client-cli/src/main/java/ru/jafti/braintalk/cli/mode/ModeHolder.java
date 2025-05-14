@@ -1,8 +1,9 @@
 package ru.jafti.braintalk.cli.mode;
 
-public class ModeHolder {
+import org.springframework.stereotype.Component;
 
-    public static final ModeHolder INSTANCE = new ModeHolder();
+@Component
+public class ModeHolder {
 
     private static final String DEFAULT_MODE = "DEFAULT";
     private static final String INTERCONNECT_MODE = "INTERCONNECT";

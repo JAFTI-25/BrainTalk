@@ -1,18 +1,18 @@
 package ru.jafti.braintalk.cli.out;
 
 
+import org.springframework.stereotype.Component;
 import ru.jafti.braintalk.cli.mode.ModeHolder;
 
+@Component
 public class TerminalOutput implements UserOutput {
-
-    public static final TerminalOutput INSTANCE = new TerminalOutput();
 
     private static final String DEFAULT_PROMPT = "#";
 
     private final ModeHolder modeHolder;
 
-    private TerminalOutput () {
-        this.modeHolder = ModeHolder.INSTANCE;
+    private TerminalOutput (ModeHolder modeHolder) {
+        this.modeHolder = modeHolder;
     }
 
     @Override

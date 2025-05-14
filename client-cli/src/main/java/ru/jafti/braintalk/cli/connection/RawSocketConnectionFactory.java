@@ -1,5 +1,8 @@
 package ru.jafti.braintalk.cli.connection;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.stereotype.Component;
+
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
@@ -17,6 +20,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
 
+@Component
+@ConditionalOnProperty(name = "ssl.socket.enabled", havingValue = "false")
 class RawSocketConnectionFactory implements ConnectionFactory {
 
     private static final String HOST = "localhost";

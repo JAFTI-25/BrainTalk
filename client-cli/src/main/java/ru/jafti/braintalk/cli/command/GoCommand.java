@@ -1,11 +1,13 @@
 package ru.jafti.braintalk.cli.command;
 
+import org.springframework.stereotype.Component;
 import ru.jafti.braintalk.cli.mode.ModeHolder;
 import ru.jafti.braintalk.cli.out.UserOutput;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Component
 public class GoCommand implements Command {
 
     private static final Pattern PATTERN = Pattern.compile("^/go +(?<user>\\w+)");

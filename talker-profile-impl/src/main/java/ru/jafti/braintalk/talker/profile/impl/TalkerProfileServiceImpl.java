@@ -34,7 +34,8 @@ public class TalkerProfileServiceImpl implements TalkerProfileService {
                 var storedUuid = UUID.fromString(resultSet.getString(DbInitializer.ID_COLUMN_NAME));
                 var nickname = resultSet.getString(DbInitializer.NICKNAME_COLUMN_NAME);
 
-                if (id == storedUuid) {
+                if (id.equals(storedUuid)) {
+                    resultSet.close();
                     return nickname;
                 }
             }
@@ -57,6 +58,7 @@ public class TalkerProfileServiceImpl implements TalkerProfileService {
                 var storedNickname = resultSet.getString(DbInitializer.NICKNAME_COLUMN_NAME);
 
                 if (Objects.equals(nickname, storedNickname)) {
+                    resultSet.close();
                     return uuid;
                 }
             }
