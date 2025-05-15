@@ -13,7 +13,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static ru.jafti.braintalk.server.Constants.SYSTEM_TALKER;
+//import static ru.jafti.braintalk.server.Constants.SYSTEM_TALKER;
 
 class RegisterControllerTest {
 //    private final TalkerProfileService talkerProfileService = mock(TalkerProfileService.class);
