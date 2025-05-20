@@ -5,7 +5,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller=" ru.jafti.braintalk.ui.javafx.ChatController">
+            fx:controller="ru.jafti.braintalk.ui.javafx.ChatController">
 
     <left>
         <ListView fx:id="userList" prefWidth="150"/>
