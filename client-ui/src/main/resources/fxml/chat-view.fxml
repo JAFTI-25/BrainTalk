@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller=" ru.jafti.braintalk.ui.javafx.ChatController">
+
+    <left>
+        <ListView fx:id="userList" prefWidth="150"/>
+    </left>
+
+    <center>
+        <VBox spacing="10">
+            <TextArea fx:id="chatHistory" editable="false" wrapText="true" prefHeight="400"/>
+            <HBox spacing="10">
+                <TextField fx:id="messageInput" promptText="Введите сообщение..." HBox.hgrow="ALWAYS"/>
+                <Button text="Отправить" onAction="#sendMessage"/>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>

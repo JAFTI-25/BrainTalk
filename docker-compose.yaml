@@ -4,8 +4,6 @@ services:
     restart: always
     ports:
       - "5433:5432"
-    networks:
-      - braintalk-local-network
     volumes:
       - ./db/db_data:/var/lib/postgresql/data/pgdata
     command:
@@ -17,7 +15,3 @@ services:
       POSTGRES_DB: "braintalk"
       POSTGRES_USER: ${BT_POSTGRES_USER}
       POSTGRES_PASSWORD: ${BT_POSTGRES_PASSWORD}
-
-networks:
-  braintalk-local-network:
-    driver: bridge

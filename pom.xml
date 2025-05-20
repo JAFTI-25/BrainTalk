@@ -24,6 +24,7 @@
         <module>client-common</module>
         <module>server-api</module>
         <module>client-lib</module>
+        <module>client-ui</module>
     </modules>
 
     <properties>
