@@ -19,9 +19,9 @@ public class RegisterApiClient implements RegisterApi {
     private final ObjectMapper objectMapper;
     private final ConnectionSettings connectionSettings;
 
-    public RegisterApiClient(ConnectionSettings connectionSettings) {
-        this.httpClient = HttpClient.newHttpClient();
-        this.objectMapper = new ObjectMapper();
+    public RegisterApiClient(HttpClient httpClient, ObjectMapper objectMapper, ConnectionSettings connectionSettings) {
+        this.httpClient = httpClient;
+        this.objectMapper = objectMapper;
         this.connectionSettings = connectionSettings;
     }
 
