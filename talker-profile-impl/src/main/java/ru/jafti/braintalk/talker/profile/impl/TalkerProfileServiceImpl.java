@@ -38,6 +38,7 @@ public class TalkerProfileServiceImpl implements TalkerProfileService {
         return entity.getTalkerId();
     }
 
+
 //    @Override
 //    public String findById(UUID id) {
 //        Connection connection = dbConnection.getConnection();
