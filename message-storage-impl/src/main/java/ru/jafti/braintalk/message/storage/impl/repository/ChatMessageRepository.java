@@ -25,4 +25,9 @@ public interface ChatMessageRepository extends CrudRepository<ChatMessageEntity,
             ORDER BY message_id
             """)
     List<ChatMessageEntity> findConversationBetween(@Param("talker1") UUID talker1, @Param("talker2") UUID talker2);
+
+    @Query("INSERT INTO chat_history (message_id, from_talker, to_talker, content, created_at) " +
+            "VALUES (:#{#entity.messageId}, :#{#entity.fromTalker}, :#{#entity.toTalker}, " +
+            ":#{#entity.content}, :#{#entity.createdAt}) RETURNING message_id")
+    Long insert(@Param("entity") ChatMessageEntity entity);
 }
