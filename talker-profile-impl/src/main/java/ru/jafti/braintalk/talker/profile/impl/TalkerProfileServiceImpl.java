@@ -1,87 +1,49 @@
 package ru.jafti.braintalk.talker.profile.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jdbc.core.JdbcAggregateTemplate;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import ru.jafti.braintalk.talker.profile.api.TalkerProfileService;
-import ru.jafti.braintalk.talker.profile.impl.persist.DbConnection;
-import ru.jafti.braintalk.talker.profile.impl.persist.DbInitializer;
+import ru.jafti.braintalk.talker.profile.impl.repository.TalkerProfileRepository;
+import ru.jafti.braintalk.talker.profile.impl.repository.model.TalkerProfileEntity;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 
 @Component
 public class TalkerProfileServiceImpl implements TalkerProfileService {
-    private final static String SELECT_REQUEST = "SELECT * FROM " + DbInitializer.TABLE_NAME;
-    private final static String INSERT_REQUEST_FORMAT = "INSERT INTO " + DbInitializer.TABLE_NAME + " VALUES ('%s', '%s')";
-
-    private final DbConnection dbConnection;
-
-    public TalkerProfileServiceImpl(DbConnection dbConnection) {
-        this.dbConnection = dbConnection;
+    @Autowired
+    private JdbcAggregateTemplate jdbcAggregateTemplate;
+    private static final Logger log = LoggerFactory.getLogger(TalkerProfileServiceImpl.class);
+    private final TalkerProfileRepository talkerProfileRepository;
+    public TalkerProfileServiceImpl(TalkerProfileRepository talkerProfileRepository) {
+        this.talkerProfileRepository = talkerProfileRepository;
     }
 
     @Override
     public String findById(UUID id) {
-        Connection connection = dbConnection.getConnection();
-        try (Statement statement = connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery(SELECT_REQUEST);
-
-            while (resultSet.next()) {
-                var storedUuid = UUID.fromString(resultSet.getString(DbInitializer.ID_COLUMN_NAME));
-                var nickname = resultSet.getString(DbInitializer.NICKNAME_COLUMN_NAME);
-
-                if (id.equals(storedUuid)) {
-                    resultSet.close();
-                    return nickname;
-                }
-            }
-
-            return null;
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        log.trace("Find profile by id: {}", id);
+        Optional<TalkerProfileEntity> profile = talkerProfileRepository.findById(id);
+        return profile.map(TalkerProfileEntity::getNickname).orElse(null);
     }
 
     @Override
     public UUID findByNickname(String nickname) {
-        Connection connection = dbConnection.getConnection();
-        try (Statement statement = connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery(SELECT_REQUEST);
-
-            while (resultSet.next()) {
-                var uuid = UUID.fromString(resultSet.getString(DbInitializer.ID_COLUMN_NAME));
-                var storedNickname = resultSet.getString(DbInitializer.NICKNAME_COLUMN_NAME);
-
-                if (Objects.equals(nickname, storedNickname)) {
-                    resultSet.close();
-                    return uuid;
-                }
-            }
-
-            return null;
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        log.trace("Find profile by nickname: {}", nickname);
+        Optional<TalkerProfileEntity> profile = talkerProfileRepository.findByNickname(nickname);
+        return profile.map(TalkerProfileEntity::getTalkerId).orElse(null);
     }
 
     @Override
     public UUID createWithNickname(String nickname) {
-        var uuid = UUID.randomUUID();
-        var insertSql = String.format(INSERT_REQUEST_FORMAT, uuid, nickname);
-        Connection connection = dbConnection.getConnection();
-
-        try (Statement statement = connection.createStatement()) {
-            statement.executeUpdate(insertSql);
-            return uuid;
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        log.trace("Create profile with nickname: {}", nickname);
+        UUID id = UUID.randomUUID();
+        TalkerProfileEntity entity = new TalkerProfileEntity();
+        entity.setNickname(nickname);
+        entity.setTalkerId(id);
+        jdbcAggregateTemplate.insert(entity);
+        return id;
     }
 }
