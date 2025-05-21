@@ -6,7 +6,7 @@ import ru.jafti.braintalk.online.registry.GoInRequest;
 import ru.jafti.braintalk.online.registry.OnlineRegistry;
 import ru.jafti.braintalk.server.connection.Session;
 import ru.jafti.braintalk.server.exception.UserException;
-import ru.jafti.braintalk.talker.profile.api.TalkerProfileService;
+import ru.jafti.braintalk.talker.profile.api.TalkerProfileStorage;
 
 import java.util.UUID;
 import java.util.regex.Pattern;
@@ -20,11 +20,11 @@ public class LoginController implements Controller {
     private static final Pattern APPLICABLE_PATTERN = Pattern.compile("^/login.*");
 
     private final OnlineRegistry onlineRegistry;
-    private final TalkerProfileService talkerProfileService;
+    private final TalkerProfileStorage talkerProfileStorage;
 
-    public LoginController(OnlineRegistry onlineRegistry, TalkerProfileService talkerProfileService) {
+    public LoginController(OnlineRegistry onlineRegistry, TalkerProfileStorage talkerProfileStorage) {
         this.onlineRegistry = onlineRegistry;
-        this.talkerProfileService = talkerProfileService;
+        this.talkerProfileStorage = talkerProfileStorage;
     }
 
     public boolean isApplicable(String inputLine) {
@@ -35,7 +35,7 @@ public class LoginController implements Controller {
         var matcher = PATTERN.matcher(inputLine);
         if (matcher.find()) {
             String talker = matcher.group("talker");
-            UUID talkerGuid = talkerProfileService.findByNickname(talker);
+            UUID talkerGuid = talkerProfileStorage.findByNickname(talker);
             if (talkerGuid == null) {
                 throw new UserException("user not found, please register");
             }

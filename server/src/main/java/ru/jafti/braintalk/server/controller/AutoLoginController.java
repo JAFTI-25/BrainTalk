@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import ru.jafti.braintalk.online.registry.GoInRequest;
 import ru.jafti.braintalk.online.registry.OnlineRegistry;
 import ru.jafti.braintalk.server.connection.Session;
-import ru.jafti.braintalk.talker.profile.api.TalkerProfileService;
+import ru.jafti.braintalk.talker.profile.api.TalkerProfileStorage;
 
 import java.util.UUID;
 import java.util.regex.Pattern;
@@ -18,11 +18,11 @@ public class AutoLoginController implements Controller{
     private static final Pattern APPLICABLE_PATTERN = Pattern.compile("^/auto-login.*");
     private static final Logger log = LoggerFactory.getLogger(AutoLoginController.class);
 
-    private final TalkerProfileService talkerProfileService;
+    private final TalkerProfileStorage talkerProfileStorage;
     private final OnlineRegistry onlineRegistry;
 
-    public AutoLoginController(TalkerProfileService talkerProfileService, OnlineRegistry onlineRegistry) {
-        this.talkerProfileService = talkerProfileService;
+    public AutoLoginController(TalkerProfileStorage talkerProfileStorage, OnlineRegistry onlineRegistry) {
+        this.talkerProfileStorage = talkerProfileStorage;
         this.onlineRegistry = onlineRegistry;
     }
 
@@ -39,7 +39,7 @@ public class AutoLoginController implements Controller{
             String idString = matcher.group("id");
             try{
                 UUID id = UUID.fromString(idString);
-                String talker = talkerProfileService.findById(id);
+                String talker = talkerProfileStorage.findById(id);
                 if (talker == null) {
                     log.debug("Talker not found");
                     session.sendToOwner("SystemBot", "Register first, please");

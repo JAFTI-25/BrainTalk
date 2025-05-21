@@ -1,7 +1,7 @@
 package ru.jafti.braintalk.server.controller;
 
 import org.junit.jupiter.api.Test;
-//import ru.jafti.braintalk.server.service.TalkerProfileService;
+//import ru.jafti.braintalk.server.service.TalkerProfileRepository;
 import ru.jafti.braintalk.server.connection.Session;
 
 import java.util.UUID;
@@ -16,7 +16,7 @@ import static org.mockito.Mockito.when;
 //import static ru.jafti.braintalk.server.Constants.SYSTEM_TALKER;
 
 class RegisterControllerTest {
-//    private final TalkerProfileService talkerProfileService = mock(TalkerProfileService.class);
+//    private final TalkerProfileRepository talkerProfileService = mock(TalkerProfileRepository.class);
 //    private final RegisterController registerController = new RegisterController(talkerProfileService);
 //    private final Session session = mock(Session.class);
 
@@ -40,12 +40,12 @@ class RegisterControllerTest {
         String nickname = "JohnDoe";
         UUID newUUID = UUID.randomUUID();
 
-//        when(talkerProfileService.findByNickname(nickname)).thenReturn(null);
+//        when(talkerProfileService.findTalkerIdByNickname(nickname)).thenReturn(null);
 //        when(talkerProfileService.createWithNickname(nickname)).thenReturn(newUUID);
 //
 //        registerController.apply("/register " + nickname, session);
 //
-//        verify(talkerProfileService).findByNickname(nickname);
+//        verify(talkerProfileService).findTalkerIdByNickname(nickname);
 //        verify(talkerProfileService).createWithNickname(nickname);
 //        verify(session).sendToOwner(SYSTEM_TALKER, "Registration successful. Your UUID: " + newUUID);
     }
@@ -55,11 +55,11 @@ class RegisterControllerTest {
         String nickname = "JohnDoe";
         UUID existingUUID = UUID.randomUUID();
 
-//        when(talkerProfileService.findByNickname(nickname)).thenReturn(existingUUID);
+//        when(talkerProfileService.findTalkerIdByNickname(nickname)).thenReturn(existingUUID);
 //
 //        registerController.apply("/register " + nickname, session);
 //
-//        verify(talkerProfileService).findByNickname(nickname);
+//        verify(talkerProfileService).findTalkerIdByNickname(nickname);
 //        verify(talkerProfileService, never()).createWithNickname(anyString());
 //        verify(session).sendToOwner(SYSTEM_TALKER, "Nickname already registered. Your UUID: " + existingUUID);
     }

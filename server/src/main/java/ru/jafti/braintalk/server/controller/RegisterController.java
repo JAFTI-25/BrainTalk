@@ -1,10 +1,9 @@
 package ru.jafti.braintalk.server.controller;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import ru.jafti.braintalk.server.connection.Session;
 import ru.jafti.braintalk.server.exception.MatchPatternException;
-import ru.jafti.braintalk.talker.profile.api.TalkerProfileService;
+import ru.jafti.braintalk.talker.profile.api.TalkerProfileStorage;
 
 import java.util.UUID;
 import java.util.regex.Pattern;
@@ -16,10 +15,10 @@ import static ru.jafti.braintalk.common.CommonConstants.SYSTEM_TALKER;
 public class RegisterController implements Controller {
 
     private static final Pattern PATTERN = Pattern.compile("^/register (\\S+)");
-    private final TalkerProfileService talkerProfileService;
+    private final TalkerProfileStorage talkerProfileStorage;
 
-    public RegisterController(TalkerProfileService talkerProfileService) {
-        this.talkerProfileService = talkerProfileService;
+    public RegisterController(TalkerProfileStorage talkerProfileStorage) {
+        this.talkerProfileStorage = talkerProfileStorage;
     }
 
     @Override
@@ -33,11 +32,11 @@ public class RegisterController implements Controller {
         if (matcher.find()) {
             String nickname = matcher.group(1);
 
-            UUID existingUUID = talkerProfileService.findByNickname(nickname);
+            UUID existingUUID = talkerProfileStorage.findByNickname(nickname);
             if (existingUUID != null) {
                 session.sendToOwner(SYSTEM_TALKER, "Nickname already registered. Your UUID: " + existingUUID);
             } else {
-                UUID newUUID = talkerProfileService.createWithNickname(nickname);
+                UUID newUUID = talkerProfileStorage.createWithNickname(nickname);
                 session.sendToOwner(SYSTEM_TALKER, "Registration successful. Your UUID: " + newUUID);
             }
         }

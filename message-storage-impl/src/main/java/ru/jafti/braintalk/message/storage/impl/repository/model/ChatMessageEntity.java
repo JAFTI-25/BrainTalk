@@ -2,11 +2,12 @@ package ru.jafti.braintalk.message.storage.impl.repository.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
+import ru.jafti.braintalk.message.storage.impl.persist.DbInitializer;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Table("chat_history")
+@Table(DbInitializer.TABLE_NAME)
 public class ChatMessageEntity {
 
     @Id

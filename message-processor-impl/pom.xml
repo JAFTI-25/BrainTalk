@@ -34,6 +34,10 @@
         </dependency>
         <dependency>
             <groupId>ru.jafti</groupId>
+            <artifactId>talker-profile-impl</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ru.jafti</groupId>
             <artifactId>message-storage-api</artifactId>
         </dependency>
         <dependency>

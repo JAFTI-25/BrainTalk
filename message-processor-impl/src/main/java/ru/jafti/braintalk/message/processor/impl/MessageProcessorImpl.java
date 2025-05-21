@@ -9,8 +9,8 @@ import ru.jafti.braintalk.message.storage.api.model.StorableMessage;
 import ru.jafti.braintalk.online.message.channel.api.OnlineMessageChannel;
 import ru.jafti.braintalk.online.message.channel.api.OutgoingMessage;
 import ru.jafti.braintalk.online.message.channel.api.SignalMessage;
-import ru.jafti.braintalk.talker.profile.api.TalkerProfileService;
 import ru.jafti.braintalk.message.storage.api.MessageStorage;
+import ru.jafti.braintalk.talker.profile.api.TalkerProfileStorage;
 
 import java.util.UUID;
 
@@ -20,16 +20,16 @@ public class MessageProcessorImpl implements MessageProcessor {
     private static final Logger log = LoggerFactory.getLogger(MessageProcessorImpl.class);
 
     private final OnlineMessageChannel messageChannel;
-    private final TalkerProfileService talkerProfileService;
+    private final TalkerProfileStorage talkerProfileStorage;
     private final MessageStorage messageStorage;
 
     public MessageProcessorImpl(
             OnlineMessageChannel messageChannel,
-            TalkerProfileService talkerProfileService,
+            TalkerProfileStorage talkerProfileStorage,
             MessageStorage messageStorage
     ) {
         this.messageChannel = messageChannel;
-        this.talkerProfileService = talkerProfileService;
+        this.talkerProfileStorage = talkerProfileStorage;
         this.messageStorage = messageStorage;
     }
 
@@ -38,7 +38,7 @@ public class MessageProcessorImpl implements MessageProcessor {
         log.trace("Submit message {}", talkersMessage);
 
         String toNickname = talkersMessage.to().nickname();
-        UUID toTalkerGuid = talkerProfileService.findByNickname(toNickname);
+        UUID toTalkerGuid = talkerProfileStorage.findByNickname(toNickname);
         if (toTalkerGuid == null) {
             log.warn("Talker not found by nickname {}", toNickname);
             signal(talkersMessage.from().talkerGuid(), "Talker " + toNickname + " not registered");
