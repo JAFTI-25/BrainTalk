@@ -1,5 +1,6 @@
 package ru.jafti.braintalk.message.storage.impl.repository;
 
+import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -25,4 +26,13 @@ public interface ChatMessageRepository extends CrudRepository<ChatMessageEntity,
             ORDER BY message_id
             """)
     List<ChatMessageEntity> findConversationBetween(@Param("talker1") UUID talker1, @Param("talker2") UUID talker2);
+
+    @Modifying
+    @Query("INSERT INTO chat_history VALUES (:messageId, :fromTalkerId, :toTalkerId, :content)")
+    void insertChatMessageEntity(
+            @Param("messageId") long messageId,
+            @Param("fromTalkerId") UUID fromTalkerId,
+            @Param("toTalkerId") UUID toTalkerId,
+            @Param("content") String content
+            );
 }

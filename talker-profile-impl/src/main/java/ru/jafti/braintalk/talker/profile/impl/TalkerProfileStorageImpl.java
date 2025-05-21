@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.jafti.braintalk.talker.profile.api.TalkerProfileStorage;
 import ru.jafti.braintalk.talker.profile.impl.repository.TalkerProfileRepository;
+import ru.jafti.braintalk.talker.profile.impl.repository.model.TalkerProfileEntity;
 
 import java.util.UUID;
 
@@ -12,19 +13,28 @@ public class TalkerProfileStorageImpl implements TalkerProfileStorage {
 
     private final TalkerProfileRepository talkerProfileRepository;
 
-    @Autowired
     public TalkerProfileStorageImpl(TalkerProfileRepository talkerProfileRepository) {
         this.talkerProfileRepository = talkerProfileRepository;
     }
 
     @Override
     public String findById(UUID talkerId) {
-        return talkerProfileRepository.findByTalkerId(talkerId).getNickname();
+        TalkerProfileEntity entity = talkerProfileRepository.findByTalkerId(talkerId);
+        if (entity == null) {
+            return null;
+        }
+
+        return entity.getNickname();
     }
 
     @Override
     public UUID findByNickname(String nickname) {
-        return talkerProfileRepository.findByNickname(nickname).getTalkerId();
+        TalkerProfileEntity entity = talkerProfileRepository.findByNickname(nickname);
+        if (entity == null) {
+            return null;
+        }
+
+        return entity.getTalkerId();
     }
 
     @Override
