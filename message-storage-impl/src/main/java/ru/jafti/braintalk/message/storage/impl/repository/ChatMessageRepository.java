@@ -4,6 +4,8 @@ import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import ru.jafti.braintalk.message.storage.impl.persist.DbInitializer;
 import ru.jafti.braintalk.message.storage.impl.repository.model.ChatMessageEntity;
 
 import java.util.List;
@@ -25,4 +27,12 @@ public interface ChatMessageRepository extends CrudRepository<ChatMessageEntity,
             ORDER BY message_id
             """)
     List<ChatMessageEntity> findConversationBetween(@Param("talker1") UUID talker1, @Param("talker2") UUID talker2);
+
+    @Query("INSERT INTO " + DbInitializer.TABLE_NAME + " VALUES (:messageId, :fromTalker, :toTalker, :content)")
+    void addChatMessage(
+            @Param("messageId") long messageId,
+            @Param("fromTalker") UUID fromTalker,
+            @Param("toTalker") UUID toTalker,
+            @Param("content") String content
+            );
 }

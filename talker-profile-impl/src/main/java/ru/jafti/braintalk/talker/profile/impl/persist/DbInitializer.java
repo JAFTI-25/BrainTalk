@@ -8,9 +8,9 @@ import java.sql.Statement;
 
 @Component
 public final class DbInitializer {
-    public final static String TABLE_NAME = "talker_profile";
-    public final static String ID_COLUMN_NAME = "talker_id";
-    public final static String NICKNAME_COLUMN_NAME = "nickname";
+    public static final String TABLE_NAME = "talker_profile";
+    public static final String ID_COLUMN_NAME = "talker_id";
+    public static final String NICKNAME_COLUMN_NAME = "nickname";
 
     public final DbConnection dbConnection;
 
