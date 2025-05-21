@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.jafti.braintalk.server.api.RegisterApi;
 import ru.jafti.braintalk.talker.profile.api.TalkerProfileService;
 
+
 import java.util.UUID;
 
 @RestController

@@ -19,9 +19,9 @@ public interface ChatMessageRepository extends CrudRepository<ChatMessageEntity,
     List<ChatMessageEntity> findByToTalker(@Param("toTalker") UUID toTalker);
 
     @Query("""
-            SELECT * FROM chat_history 
-            WHERE LEAST(from_talker, to_talker) = LEAST(:talker1, :talker2) 
-              AND GREATEST(from_talker, to_talker) = GREATEST(:talker1, :talker2) 
+            SELECT * FROM chat_history
+            WHERE LEAST(from_talker, to_talker) = LEAST(:talker1, :talker2)
+              AND GREATEST(from_talker, to_talker) = GREATEST(:talker1, :talker2)
             ORDER BY message_id
             """)
     List<ChatMessageEntity> findConversationBetween(@Param("talker1") UUID talker1, @Param("talker2") UUID talker2);

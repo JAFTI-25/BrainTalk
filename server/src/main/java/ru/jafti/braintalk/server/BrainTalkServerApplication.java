@@ -15,7 +15,7 @@ import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@EnableJdbcRepositories(basePackages = "ru.jafti.braintalk.message.storage.impl.repository")
+
 @ComponentScan(basePackages = {
         "ru.jafti.braintalk",
         "ru.jafti.message.processor.impl",
@@ -23,6 +23,9 @@ import java.util.concurrent.Executors;
         "ru.jafti.braintalk.message.storage.impl",
 })
 @SpringBootApplication
+@EnableJdbcRepositories({"ru.jafti.braintalk.message.storage.impl.repository",
+                        "ru.jafti.braintalk.talker.profile.impl.repository"})
+
 public class BrainTalkServerApplication {
 
     private final ExecutorService executor = Executors.newFixedThreadPool(2);
