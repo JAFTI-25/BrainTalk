@@ -13,6 +13,7 @@ public class TalkerProfileServiceImpl implements TalkerProfileService {
     private TalkerProfileRepository repository;
 
     public TalkerProfileServiceImpl(DbConnection dbConnection) {
+
         this.repository = repository;
     }
 
