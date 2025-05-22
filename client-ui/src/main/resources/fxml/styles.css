@@ -1,0 +1,92 @@
+/* styles.css - Blue theme */
+.root {
+    -fx-background-color: #f5f5f5;
+}
+
+/* Стиль для всего BorderPane */
+BorderPane {
+    -fx-background-color: #e6ebf0;
+    -fx-padding: 10;
+}
+
+/* Стиль списка пользователей */
+#userList {
+    -fx-background-color: #e1e9f2;
+    -fx-border-color: #d3d9e5;
+    -fx-border-width: 0 1 0 0;
+    -fx-font-size: 14px;
+}
+
+.list-cell {
+    -fx-padding: 8 10;
+    -fx-background-color: transparent;
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: #d8e1f0;
+}
+
+.list-cell:filled:selected {
+    -fx-background-color: #c5d5f0;
+}
+
+/* Стиль области чата */
+#chatHistory {
+    -fx-background-color: white;
+    -fx-border-color: #d3d9e5;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-font-size: 14px;
+    -fx-padding: 10;
+}
+
+/* Стиль для ввода сообщения */
+#messageInput {
+    -fx-background-color: white;
+    -fx-border-color: #d3d9e5;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-padding: 8 15;
+    -fx-font-size: 14px;
+}
+
+#messageInput:focused {
+    -fx-border-color: #6ab7ff;
+}
+
+/* Стиль кнопки отправки */
+.button {
+    -fx-background-color: #3390ec;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 20;
+    -fx-padding: 8 20;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #2a7fd4;
+}
+
+.button:pressed {
+    -fx-background-color: #1f6cbb;
+}
+
+/* Стиль для полосы прокрутки */
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #c5cbd8;
+    -fx-background-radius: 5;
+}
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #aeb5c4;
+}
