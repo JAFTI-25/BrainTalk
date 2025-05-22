@@ -4,7 +4,6 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.UUID;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -19,9 +18,13 @@ public class RegisterApiClient implements RegisterApi {
     private final ObjectMapper objectMapper;
     private final ConnectionSettings connectionSettings;
 
-    public RegisterApiClient(ConnectionSettings connectionSettings) {
-        this.httpClient = HttpClient.newHttpClient();
-        this.objectMapper = new ObjectMapper();
+    public RegisterApiClient(
+            HttpClient httpClient,
+            ObjectMapper objectMapper,
+            ConnectionSettings connectionSettings
+    ) {
+        this.httpClient = httpClient;
+        this.objectMapper = objectMapper;
         this.connectionSettings = connectionSettings;
     }
 

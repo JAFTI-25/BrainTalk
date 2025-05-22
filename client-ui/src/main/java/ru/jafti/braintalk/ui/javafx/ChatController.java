@@ -4,7 +4,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import ru.jafti.braintalk.server.api.ActiveTalkersApi;
+
+import java.util.List;
 
 @Component
 public class ChatController {
@@ -12,10 +16,18 @@ public class ChatController {
     @FXML private TextArea chatHistory;
     @FXML private TextField messageInput;
 
+    @Autowired
+    private ActiveTalkersApi activeTalkersApi;
+
     @FXML
     private void initialize() {
-        // Заглушка: тестовые данные
-        userList.getItems().addAll("User1", "User2", "User3");
+        ActiveTalkersApi.ActiveTalkersResponse activeTalkersResponse = activeTalkersApi.fetchAll();
+        List<String> activeNicknames = activeTalkersResponse.activeTalkers()
+                .stream()
+                .map(ActiveTalkersApi.ActiveTalker::nickname)
+                .toList();
+
+        userList.getItems().addAll(activeNicknames);
         chatHistory.setText("История переписки...");
 
         // Обработчик выбора пользователя

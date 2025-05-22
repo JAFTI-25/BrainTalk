@@ -12,9 +12,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
 
 import java.io.IOException;
 
+@ComponentScan(basePackages = {
+        "ru.jafti.braintalk.client.lib",
+        "ru.jafti.braintalk.client.common",
+        "ru.jafti.braintalk.ui.javafx"
+})
 @SpringBootApplication
 public class BrainTalkUiApplication extends Application {
 
@@ -46,9 +52,10 @@ public class BrainTalkUiApplication extends Application {
         Platform.exit();
     }
 
-    private static Parent loadFXML() {
+    private Parent loadFXML() {
         FXMLLoader loader = new FXMLLoader(BrainTalkUiApplication.class.getResource("/fxml/chat-view.fxml"));
         try {
+            loader.setControllerFactory(applicationContext::getBean);
             return loader.load();
         } catch (IOException e) {
             throw new RuntimeException(e);
