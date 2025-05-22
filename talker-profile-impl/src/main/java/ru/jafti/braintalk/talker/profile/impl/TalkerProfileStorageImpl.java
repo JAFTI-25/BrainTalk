@@ -1,6 +1,5 @@
 package ru.jafti.braintalk.talker.profile.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.jafti.braintalk.talker.profile.api.TalkerProfileStorage;
 import ru.jafti.braintalk.talker.profile.impl.repository.TalkerProfileRepository;
