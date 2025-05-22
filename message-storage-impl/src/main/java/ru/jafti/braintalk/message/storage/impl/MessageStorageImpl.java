@@ -22,15 +22,12 @@ import static ru.jafti.braintalk.message.storage.impl.persist.DbInitializer.ID_C
 
 @Component
 public class MessageStorageImpl implements MessageStorage {
-
     private static final Logger log = LoggerFactory.getLogger(MessageStorageImpl.class);
     private final ChatMessageRepository repository;
-
 
     public MessageStorageImpl(ChatMessageRepository repository) {
         this.repository = repository;
     }
-
 
     @Override
     public void store(StorableMessage storableMessage) {
@@ -46,7 +43,6 @@ public class MessageStorageImpl implements MessageStorage {
         repository.save(entity);
         log.trace("Store message success {}", entity.getMessageId());
     }
-
     private long convertStringToLong(String string) {
         return Long.parseLong(string);
     }

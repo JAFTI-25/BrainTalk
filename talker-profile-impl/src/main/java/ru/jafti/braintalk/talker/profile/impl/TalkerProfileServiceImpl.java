@@ -20,8 +20,6 @@ public class TalkerProfileServiceImpl implements TalkerProfileService {
 
     @Override
     public String findById(UUID id){
-        // Здесь Hikari CP предоставляет соединение,
-        // а Spring Data JDBC выполняет запрос
         return repository.findById(id);
     }
 
@@ -37,65 +35,4 @@ public class TalkerProfileServiceImpl implements TalkerProfileService {
         repository.save(entity);
         return entity.getTalkerId();
     }
-
-//    @Override
-//    public String findById(UUID id) {
-//        Connection connection = dbConnection.getConnection();
-//        try (Statement statement = connection.createStatement()) {
-//            ResultSet resultSet = statement.executeQuery(SELECT_REQUEST);
-//
-//            while (resultSet.next()) {
-//                var storedUuid = UUID.fromString(resultSet.getString(DbInitializer.ID_COLUMN_NAME));
-//                var nickname = resultSet.getString(DbInitializer.NICKNAME_COLUMN_NAME);
-//
-//                if (id.equals(storedUuid)) {
-//                    resultSet.close();
-//                    return nickname;
-//                }
-//            }
-//
-//            return null;
-//
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-//
-//    @Override
-//    public UUID findByNickname(String nickname) {
-//        Connection connection = dbConnection.getConnection();
-//        try (Statement statement = connection.createStatement()) {
-//            ResultSet resultSet = statement.executeQuery(SELECT_REQUEST);
-//
-//            while (resultSet.next()) {
-//                var uuid = UUID.fromString(resultSet.getString(DbInitializer.ID_COLUMN_NAME));
-//                var storedNickname = resultSet.getString(DbInitializer.NICKNAME_COLUMN_NAME);
-//
-//                if (Objects.equals(nickname, storedNickname)) {
-//                    resultSet.close();
-//                    return uuid;
-//                }
-//            }
-//
-//            return null;
-//
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-//
-//    @Override
-//    public UUID createWithNickname(String nickname) {
-//        var uuid = UUID.randomUUID();
-//        var insertSql = String.format(INSERT_REQUEST_FORMAT, uuid, nickname);
-//        Connection connection = dbConnection.getConnection();
-//
-//        try (Statement statement = connection.createStatement()) {
-//            statement.executeUpdate(insertSql);
-//            return uuid;
-//
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
 }
