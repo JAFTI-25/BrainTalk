@@ -32,6 +32,4 @@ public class TalkerProfileController {
     UUID createWithNicknameQuery(@Param("nickname") String nickname) {
         return repository.findByNickname(nickname);
     }
-
-
 }

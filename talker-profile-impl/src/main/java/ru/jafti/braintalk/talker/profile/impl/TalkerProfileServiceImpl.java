@@ -12,8 +12,6 @@ import java.util.UUID;
 public class TalkerProfileServiceImpl implements TalkerProfileService {
     private TalkerProfileRepository repository;
 
-    public void setRepository(TalkerProfileRepository repository){ this.repository=repository;}
-
     public TalkerProfileServiceImpl(DbConnection dbConnection) {
         this.repository = repository;
     }
